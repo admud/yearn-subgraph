@@ -1,4 +1,4 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
@@ -10,20 +10,28 @@ dataSources:
       abi: yfUSDT
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - Approval
-        - OwnershipTransferred
+        - yfUSDT
+        - Account
+        - AccountVaultBalance
+        - Token
         - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
       abis:
         - name: yfUSDT
           file: ./abis/yfUSDT.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: yEarn
+          file: ./abis/yEarn.json
+        - name: yVault
+          file: ./abis/yVault.json
       eventHandlers:
-        - event: Approval(indexed address,indexed address,uint256)
-          handler: handleApproval
-        - event: OwnershipTransferred(indexed address,indexed address)
-          handler: handleOwnershipTransferred
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleTransfer
+          handler: handleShareTransfer
       file: ./src/mapping.ts
