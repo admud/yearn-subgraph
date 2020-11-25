@@ -93,7 +93,7 @@ export function handleShareTransfer(event: Transfer): void {
   let amount: BigInt;
   
   if (farmer.totalSupplyRaw != BIGINT_ZERO) {
-    amount = ((farmer.vaultBalanceRaw.plus(farmer.earnBalanceRaw)).times(event.params.value)).div(farmer.totalSupplyRaw);
+    amount = ((farmer.vaultBalanceRaw.plus(farmer.earnBalanceRaw).div(BigInt.fromI32(2))).times(event.params.value)).div(farmer.totalSupplyRaw);
   } else {
     amount = (event.params.value.times(farmer.pricePerFullShareRaw)).div(BigInt.fromI32(10).pow(18));
   }
