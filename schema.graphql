@@ -10,8 +10,6 @@ type Farmer @entity {
   "Deposit token"
   underlyingToken: Token!
   shareToken: Token!
-  earnToken: Token!
-  vaultToken: Token!
   "Transaction metadata for the last update"
   transaction: Transaction!
   "balance: totalDeposited - totalWithdrawn: all deposits of underlying made by external accounts"
@@ -113,7 +111,6 @@ type FarmerToken @entity {
   decimals: Int!
   name: String!
   symbol: String!
-  balance: BigDecimal!
   balanceRaw: BigInt!
   getPricePerFullShare: BigInt!
 }
@@ -128,7 +125,6 @@ type Transfer @entity {
   pricePerFullShare: BigInt!
   vaultBalance: BigInt!
   totalSupply: BigInt!
-  available: BigInt!
   transaction: Transaction!
 }
 
@@ -141,7 +137,6 @@ interface Action @entity {
   pricePerFullShare: BigInt!
   vaultBalance: BigInt!
   totalSupply: BigInt!
-  available: BigInt!
   transaction: Transaction!
 }
 
@@ -154,7 +149,6 @@ type Deposit implements Action @entity {
   pricePerFullShare: BigInt!
   vaultBalance: BigInt!
   totalSupply: BigInt!
-  available: BigInt!
   transaction: Transaction!
 }
 
@@ -167,7 +161,6 @@ type Withdrawal implements Action @entity {
   pricePerFullShare: BigInt!
   vaultBalance: BigInt!
   totalSupply: BigInt!
-  available: BigInt!
   transaction: Transaction!
 }
 

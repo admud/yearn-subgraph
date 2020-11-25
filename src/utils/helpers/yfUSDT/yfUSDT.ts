@@ -62,7 +62,7 @@ export function getOrCreateFarmer(
 
     vault.earnBalanceRaw = earnToken.balanceRaw;
     vault.vaultBalanceRaw = vaultToken.balanceRaw;
-    vault.pricePerFullShareRaw = (earnToken.getPricePerFullShare.plus(vaultToken.getPricePerFullShare)).div(new BigInt(2));
+    vault.pricePerFullShareRaw = (earnToken.getPricePerFullShare.plus(vaultToken.getPricePerFullShare)).div(BigInt.fromI32(2));
     vault.totalSupplyRaw = !totalSupply.reverted
       ? totalSupply.value
       : vault.totalSupplyRaw;

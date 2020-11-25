@@ -93,9 +93,9 @@ export function handleShareTransfer(event: Transfer): void {
   let amount: BigInt;
   
   if (farmer.totalSupplyRaw != BIGINT_ZERO) {
-    amount = ((farmer.vaultBalanceRaw.plus(farmer.earnBalanceRaw)) * event.params.value) / farmer.totalSupplyRaw;
+    amount = ((farmer.vaultBalanceRaw.plus(farmer.earnBalanceRaw)).times(event.params.value)).div(farmer.totalSupplyRaw);
   } else {
-    amount = (event.params.value * farmer.pricePerFullShareRaw) / BigInt.fromI32(10).pow(18);
+    amount = (event.params.value.times(farmer.pricePerFullShareRaw)).div(BigInt.fromI32(10).pow(18));
   }
 
   let toAccountBalance = getOrCreateAccountVaultBalance(
@@ -293,4 +293,18 @@ export function handleShareTransfer(event: Transfer): void {
 
     fromAccountBalance.save();
   }
+
+  farmer.netDepositsRaw = farmer.totalDepositedRaw.minus(farmer.totalWithdrawnRaw);
+  farmer.totalActiveSharesRaw =
+  farmer.totalSharesMintedRaw.minus(farmer.totalSharesBurnedRaw);
+
+  farmer.netDeposits = toDecimal(farmer.netDepositsRaw, underlyingToken.decimals);
+  farmer.totalActiveShares = toDecimal(
+    farmer.totalActiveSharesRaw,
+    shareToken.decimals
+  );
+
+  farmer.save();
+  fromAccount.save();
+  toAccount.save();
 }
