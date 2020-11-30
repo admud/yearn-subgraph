@@ -4,9 +4,9 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: yfUSDT
-    network: rinkeby
+    network: mainnet
     source:
-      address: "0x9680CF4CfED6Cf04eF0Eeb513c2399c192D0c0B0"
+      address: "0xA0db955B5bdFA7C279CdE6C136FBA20C195CdEe5"
       abi: yfUSDT
     mapping:
       kind: ethereum/events
