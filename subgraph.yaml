@@ -1,19 +1,19 @@
 specVersion: 0.0.2
+description: Subgraph for DAOVaultMediumUSDT
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: yfUSDT
+    name: DAOVaultMediumUSDT
     network: rinkeby
     source:
-      address: "0x9680CF4CfED6Cf04eF0Eeb513c2399c192D0c0B0"
-      abi: yfUSDT
+      address: "0x132b495eC9451c9D572A791Ef9cB6f96Dcb67020"
+      abi: DAOVaultMediumUSDT
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - yfUSDT
         - Account
         - AccountVaultBalance
         - Token
@@ -23,14 +23,16 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: yfUSDT
-          file: ./abis/yfUSDT.json
         - name: ERC20
           file: ./abis/ERC20.json
         - name: yEarn
           file: ./abis/yEarn.json
         - name: yVault
           file: ./abis/yVault.json
+        - name: DAOVaultMediumUSDT
+          file: ./abis/DAOVaultMediumUSDT.json
+        - name: YearnFarmerUSDTv2
+          file: ./abis/YearnFarmerUSDTv2.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleShareTransfer

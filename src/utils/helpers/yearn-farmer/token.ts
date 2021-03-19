@@ -1,6 +1,6 @@
 import { Address } from "@graphprotocol/graph-ts";
+import { ERC20 } from "../../../../generated/DAOVaultMediumUSDT/ERC20";
 import { Token } from "../../../../generated/schema";
-import { ERC20 } from "../../../../generated/yfUSDT/ERC20";
 import { DEFAULT_DECIMALS } from "../../decimals";
 
 export function getOrCreateToken(

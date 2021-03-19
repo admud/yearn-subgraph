@@ -1,17 +1,17 @@
 export {
   getOrCreateToken
-} from "./yfUSDT/token";
+} from "./yearn-farmer/token";
 
 export {
   getOrCreateEarnFarmerToken,
   getOrCreateVaultFarmerToken
-} from "./yfUSDT/farmerToken";
+} from "./yearn-farmer/farmerToken";
 
 export {
   getOrCreateFarmer,
-} from "./yfUSDT/yfUSDT";
+} from "./yearn-farmer/vault";
 
 export {
   getOrCreateAccount,
   getOrCreateAccountVaultBalance
-} from "./yfUSDT/account";
+} from "./yearn-farmer/account";

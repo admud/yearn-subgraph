@@ -1,15 +1,10 @@
 import { Address, BigInt } from "@graphprotocol/graph-ts"
+import { Transfer } from "../generated/DAOVaultMediumUSDT/DAOVaultMediumUSDT";
 import { Farmer } from "../generated/schema";
-import {
-  yfUSDT,
-  Approval,
-  OwnershipTransferred,
-  Transfer
-} from "../generated/yfUSDT/yfUSDT"
 import { BIGINT_ZERO, ZERO_ADDRESS } from "./utils/constants";
 import { toDecimal } from "./utils/decimals";
-import { getOrCreateAccount, getOrCreateAccountVaultBalance, getOrCreateToken } from "./utils/helpers";
-import { getOrCreateFarmer, getOrCreateTransaction, getOrCreateVaultDeposit, getOrCreateVaultTransfer, getOrCreateVaultWithdrawal } from "./utils/helpers/yfUSDT/yfUSDT";
+import { getOrCreateAccount, getOrCreateAccountVaultBalance, getOrCreateFarmer, getOrCreateToken } from "./utils/helpers";
+import { getOrCreateTransaction, getOrCreateVaultDeposit, getOrCreateVaultTransfer, getOrCreateVaultWithdrawal } from "./utils/helpers/yearn-farmer/vault";
 
 function handleTransfer(
   event: Transfer,
@@ -26,8 +21,6 @@ function handleTransfer(
   transfer.to = toId;
   transfer.value = event.params.value;
   transfer.amount = amount;
-  transfer.pricePerFullShare = vault.pricePerFullShareRaw;
-  transfer.vaultBalance = vault.vaultBalanceRaw;
   transfer.totalSupply = vault.totalSupplyRaw;
   transfer.transaction = event.transaction.hash.toHexString();
 
@@ -47,8 +40,6 @@ function handleDeposit(
   deposit.account = accountId;
   deposit.amount = amount;
   deposit.shares = event.params.value;
-  deposit.pricePerFullShare = vault.pricePerFullShareRaw;
-  deposit.vaultBalance = vault.vaultBalanceRaw;
   deposit.totalSupply = vault.totalSupplyRaw;
   deposit.transaction = event.transaction.hash.toHexString();
 
@@ -68,8 +59,6 @@ function handleWithdrawal(
   withdraw.account = accountId;
   withdraw.amount = amount;
   withdraw.shares = event.params.value;
-  withdraw.pricePerFullShare = vault.pricePerFullShareRaw;
-  withdraw.vaultBalance = vault.vaultBalanceRaw;
   withdraw.totalSupply = vault.totalSupplyRaw;
   withdraw.transaction = event.transaction.hash.toHexString();
 
@@ -92,10 +81,11 @@ export function handleShareTransfer(event: Transfer): void {
 
   let amount: BigInt;
   
+  // Actual value (amount) in underlying token
   if (farmer.totalSupplyRaw != BIGINT_ZERO) {
-    amount = ((farmer.vaultBalanceRaw.plus(farmer.earnBalanceRaw).div(BigInt.fromI32(2))).times(event.params.value)).div(farmer.totalSupplyRaw);
+    amount = event.params.value.times(farmer.poolRaw).div(farmer.totalSupplyRaw); 
   } else {
-    amount = (event.params.value.times(farmer.pricePerFullShareRaw)).div(BigInt.fromI32(10).pow(18));
+    amount = event.params.value;
   }
 
   let toAccountBalance = getOrCreateAccountVaultBalance(
