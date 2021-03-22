@@ -5,9 +5,9 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: DAOVaultMediumUSDT
-    network: rinkeby
+    network: mainnet
     source:
-      address: "0x132b495eC9451c9D572A791Ef9cB6f96Dcb67020"
+      address: "0x4F0C1c9bA6B9CCd0BEd6166e86b672ac8EE621F7"
       abi: DAOVaultMediumUSDT
     mapping:
       kind: ethereum/events
