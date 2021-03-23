@@ -1,9 +1,15 @@
 type Farmer @entity {
   id: ID!
-  "Amount of underlying token per 1 share"
-  pricePerFullShare: BigDecimal!
+  # "Amount of underlying token per 1 share"
+  # pricePerFullShare: BigDecimal!
+  "Amount of earn token per 1 share"
+  earnPricePerFullShare: BigDecimal!
+  "Amount of vault token per 1 share"
+  vaultPricePerFullShare: BigDecimal!
   "Total shares supply"
   totalSupply: BigDecimal!
+  "Total Balance of the strategy in ERC-20"
+  pool: BigDecimal!
   earnBalance: BigDecimal!
   "Full vault underlying token balance (vault + strategy)"
   vaultBalance: BigDecimal!
@@ -22,8 +28,11 @@ type Farmer @entity {
   totalSharesBurned: BigDecimal!
   totalEarnings: BigDecimal!
   # raw
-  pricePerFullShareRaw: BigInt!
+  # pricePerFullShareRaw: BigInt!
+  earnPricePerFullShareRaw: BigInt!
+  vaultPricePerFullShareRaw: BigInt!
   totalSupplyRaw: BigInt!
+  poolRaw: BigInt!
   earnBalanceRaw: BigInt!
   "Balance of the Vault contract of underlying Token + balance of the Strategy contract of underlying Token"
   vaultBalanceRaw: BigInt!
@@ -122,8 +131,6 @@ type Transfer @entity {
   value: BigInt!
   amount: BigInt!
   farmer: Farmer!
-  pricePerFullShare: BigInt!
-  vaultBalance: BigInt!
   totalSupply: BigInt!
   transaction: Transaction!
 }
@@ -134,8 +141,6 @@ interface Action @entity {
   account: Account!
   amount: BigInt!
   shares: BigInt!
-  pricePerFullShare: BigInt!
-  vaultBalance: BigInt!
   totalSupply: BigInt!
   transaction: Transaction!
 }
@@ -146,8 +151,6 @@ type Deposit implements Action @entity {
   account: Account!
   amount: BigInt!
   shares: BigInt!
-  pricePerFullShare: BigInt!
-  vaultBalance: BigInt!
   totalSupply: BigInt!
   transaction: Transaction!
 }
@@ -158,8 +161,6 @@ type Withdrawal implements Action @entity {
   account: Account!
   amount: BigInt!
   shares: BigInt!
-  pricePerFullShare: BigInt!
-  vaultBalance: BigInt!
   totalSupply: BigInt!
   transaction: Transaction!
 }

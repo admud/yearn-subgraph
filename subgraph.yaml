@@ -1,19 +1,19 @@
 specVersion: 0.0.2
+description: Subgraph for DAOVaultMedium
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: yfUSDT
+    name: DAOVaultMediumUSDT
     network: mainnet
     source:
-      address: "0xA0db955B5bdFA7C279CdE6C136FBA20C195CdEe5"
-      abi: yfUSDT
+      address: "0x4F0C1c9bA6B9CCd0BEd6166e86b672ac8EE621F7"
+      abi: DAOVaultMedium
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - yfUSDT
         - Account
         - AccountVaultBalance
         - Token
@@ -23,14 +23,118 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: yfUSDT
-          file: ./abis/yfUSDT.json
         - name: ERC20
           file: ./abis/ERC20.json
         - name: yEarn
           file: ./abis/yEarn.json
         - name: yVault
           file: ./abis/yVault.json
+        - name: DAOVaultMedium
+          file: ./abis/DAOVaultMedium.json
+        - name: YearnFarmerv2
+          file: ./abis/YearnFarmerv2.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: DAOVaultMediumUSDC
+    network: mainnet
+    source:
+      address: "0x9f0230FbDC0379E5FefAcca89bE03A42Fec5fb6E"
+      abi: DAOVaultMedium
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: yEarn
+          file: ./abis/yEarn.json
+        - name: yVault
+          file: ./abis/yVault.json
+        - name: DAOVaultMedium
+          file: ./abis/DAOVaultMedium.json
+        - name: YearnFarmerv2
+          file: ./abis/YearnFarmerv2.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: DAOVaultMediumDAI
+    network: mainnet
+    source:
+      address: "0x2bFc2Da293C911e5FfeC4D2A2946A599Bc4Ae770"
+      abi: DAOVaultMedium
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: yEarn
+          file: ./abis/yEarn.json
+        - name: yVault
+          file: ./abis/yVault.json
+        - name: DAOVaultMedium
+          file: ./abis/DAOVaultMedium.json
+        - name: YearnFarmerv2
+          file: ./abis/YearnFarmerv2.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: DAOVaultMediumTUSD
+    network: mainnet
+    source:
+      address: "0x2C8de02aD4312069355B94Fb936EFE6CFE0C8FF6"
+      abi: DAOVaultMedium
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: yEarn
+          file: ./abis/yEarn.json
+        - name: yVault
+          file: ./abis/yVault.json
+        - name: DAOVaultMedium
+          file: ./abis/DAOVaultMedium.json
+        - name: YearnFarmerv2
+          file: ./abis/YearnFarmerv2.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleShareTransfer

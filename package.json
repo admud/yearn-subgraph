@@ -1,13 +1,13 @@
 {
-  "name": "Yearnfarmer",
+  "name": "YearnFarmerv2",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ soonlai814/yearn-farmer",
-    "create-local": "graph create --node http://localhost:8020/ soonlai814/yearn-farmer",
-    "remove-local": "graph remove --node http://localhost:8020/ soonlai814/yearn-farmer",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 soonlai814/yearn-farmer"
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ daoventures/yearn-farmerv2",
+    "create-local": "graph create --node http://localhost:8020/ daoventures/yearn-farmerv2",
+    "remove-local": "graph remove --node http://localhost:8020/ daoventures/yearn-farmerv2",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 daoventures/yearn-farmerv2"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.19.0",
