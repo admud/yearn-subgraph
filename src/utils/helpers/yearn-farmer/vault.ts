@@ -4,15 +4,15 @@ import { BIGDECIMAL_ZERO, BIGINT_ZERO } from "../../constants";
 import { toDecimal } from "../../decimals";
 import { getOrCreateToken } from "./token";
 import { getOrCreateEarnFarmerToken, getOrCreateVaultFarmerToken } from "./farmerToken";
-import { DAOVaultMediumUSDT } from "../../../../generated/DAOVaultMediumUSDT/DAOVaultMediumUSDT";
-import { YearnFarmerUSDTv2 } from "../../../../generated/DAOVaultMediumUSDT/YearnFarmerUSDTv2";
+import { DAOVaultMedium } from "../../../../generated/DAOVaultMediumUSDT/DAOVaultMedium";
+import { YearnFarmerv2 } from "../../../../generated/DAOVaultMediumUSDT/YearnFarmerv2";
 
 export function getOrCreateFarmer(
   vaultAddress: Address,
   update: boolean = true
 ): Farmer {
   let vault = Farmer.load(vaultAddress.toHexString());
-  let vaultContract = DAOVaultMediumUSDT.bind(vaultAddress);
+  let vaultContract = DAOVaultMedium.bind(vaultAddress);
 
   if (vault == null) {
     vault = new Farmer(vaultAddress.toHexString());
@@ -50,7 +50,7 @@ export function getOrCreateFarmer(
   if (update) {
     let strategyAddress = vaultContract.try_strategy();
     if (!strategyAddress.reverted) {
-        let strategyContract = YearnFarmerUSDTv2.bind(vaultContract.strategy());
+        let strategyContract = YearnFarmerv2.bind(vaultContract.strategy());
 
         // Might be worth using the "try_" version of these calls in the future.
         let underlyingTokenAddress = vaultContract.token();
