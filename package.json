@@ -1,5 +1,5 @@
 {
-  "name": "DAOVaultMediumUSDT",
+  "name": "DAOVault",
   "license": "UNLICENSED",
   "scripts": {
     "codegen": "graph codegen",
