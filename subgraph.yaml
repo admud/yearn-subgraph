@@ -1,5 +1,5 @@
 specVersion: 0.0.2
-description: Subgraph for DAOVaultMedium
+description: Subgraph for DAOVault
 schema:
   file: ./schema.graphql
 dataSources:
@@ -138,4 +138,100 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: DAOVaultLowUSDT
+    network: mainnet
+    source:
+      address: "0x11Af10648ed5094f41753ccB69a2f74135697631"
+      abi: DAOVaultLow
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: DAOVaultLow
+          file: ./abis/DAOVaultLow.json
+        - name: DAOVaultMedium
+          file: ./abis/DAOVaultMedium.json
+        - name: CompoundFarmer
+          file: ./abis/CompoundFarmer.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleCompoundShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: DAOVaultLowUSDC
+    network: mainnet
+    source:
+      address: "0x89bE389b0529CA3187B6e81e689496cB3Bad8557"
+      abi: DAOVaultLow
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: DAOVaultLow
+          file: ./abis/DAOVaultLow.json
+        - name: DAOVaultMedium
+          file: ./abis/DAOVaultMedium.json
+        - name: CompoundFarmer
+          file: ./abis/CompoundFarmer.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleCompoundShareTransfer
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: DAOVaultLowDAI
+    network: mainnet
+    source:
+      address: "0x0C5cff1C9Ec7Ce8e28998503471B19c848c5a581"
+      abi: DAOVaultLow
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: DAOVaultLow
+          file: ./abis/DAOVaultLow.json
+        - name: DAOVaultMedium
+          file: ./abis/DAOVaultMedium.json
+        - name: CompoundFarmer
+          file: ./abis/CompoundFarmer.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleCompoundShareTransfer
       file: ./src/mapping.ts
