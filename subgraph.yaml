@@ -143,7 +143,7 @@ dataSources:
     name: DAOVaultLowUSDT
     network: mainnet
     source:
-      address: "0x11Af10648ed5094f41753ccB69a2f74135697631"
+      address: "0xEeCe6AD323a93d4B021BDAaC587DCC04b5cf0a78"
       abi: DAOVaultLow
     mapping:
       kind: ethereum/events
@@ -175,7 +175,7 @@ dataSources:
     name: DAOVaultLowUSDC
     network: mainnet
     source:
-      address: "0x89bE389b0529CA3187B6e81e689496cB3Bad8557"
+      address: "0xd1D7f950899C0269a7F2aad5E854cdc3a1350ba9"
       abi: DAOVaultLow
     mapping:
       kind: ethereum/events
@@ -207,7 +207,7 @@ dataSources:
     name: DAOVaultLowDAI
     network: mainnet
     source:
-      address: "0x0C5cff1C9Ec7Ce8e28998503471B19c848c5a581"
+      address: "0x43C20638C3914Eca3c96e9cAc8ebE7d652Be45c6"
       abi: DAOVaultLow
     mapping:
       kind: ethereum/events
