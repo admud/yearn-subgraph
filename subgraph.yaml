@@ -3,12 +3,244 @@ description: Subgraph for DAOVault
 schema:
   file: ./schema.graphql
 dataSources:
+  # - kind: ethereum/contract
+  #   name: DAOVaultMediumUSDT
+  #   network: mainnet
+  #   source:
+  #     address: "0x4F0C1c9bA6B9CCd0BEd6166e86b672ac8EE621F7"
+  #     abi: DAOVaultMedium
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Account
+  #       - AccountVaultBalance
+  #       - Token
+  #       - Transfer
+  #       - Deposit
+  #       - Withdrawal
+  #       - Transaction
+  #       - FarmerToken
+  #     abis:
+  #       - name: ERC20
+  #         file: ./abis/ERC20.json
+  #       - name: yEarn
+  #         file: ./abis/yEarn.json
+  #       - name: yVault
+  #         file: ./abis/yVault.json
+  #       - name: DAOVaultMedium
+  #         file: ./abis/DAOVaultMedium.json
+  #       - name: YearnFarmerv2
+  #         file: ./abis/YearnFarmerv2.json
+  #     eventHandlers:
+  #       - event: Transfer(indexed address,indexed address,uint256)
+  #         handler: handleShareTransfer
+  #     file: ./src/mapping.ts
+  # - kind: ethereum/contract
+  #   name: DAOVaultMediumUSDC
+  #   network: mainnet
+  #   source:
+  #     address: "0x9f0230FbDC0379E5FefAcca89bE03A42Fec5fb6E"
+  #     abi: DAOVaultMedium
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Account
+  #       - AccountVaultBalance
+  #       - Token
+  #       - Transfer
+  #       - Deposit
+  #       - Withdrawal
+  #       - Transaction
+  #       - FarmerToken
+  #     abis:
+  #       - name: ERC20
+  #         file: ./abis/ERC20.json
+  #       - name: yEarn
+  #         file: ./abis/yEarn.json
+  #       - name: yVault
+  #         file: ./abis/yVault.json
+  #       - name: DAOVaultMedium
+  #         file: ./abis/DAOVaultMedium.json
+  #       - name: YearnFarmerv2
+  #         file: ./abis/YearnFarmerv2.json
+  #     eventHandlers:
+  #       - event: Transfer(indexed address,indexed address,uint256)
+  #         handler: handleShareTransfer
+  #     file: ./src/mapping.ts
+  # - kind: ethereum/contract
+  #   name: DAOVaultMediumDAI
+  #   network: mainnet
+  #   source:
+  #     address: "0x2bFc2Da293C911e5FfeC4D2A2946A599Bc4Ae770"
+  #     abi: DAOVaultMedium
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Account
+  #       - AccountVaultBalance
+  #       - Token
+  #       - Transfer
+  #       - Deposit
+  #       - Withdrawal
+  #       - Transaction
+  #       - FarmerToken
+  #     abis:
+  #       - name: ERC20
+  #         file: ./abis/ERC20.json
+  #       - name: yEarn
+  #         file: ./abis/yEarn.json
+  #       - name: yVault
+  #         file: ./abis/yVault.json
+  #       - name: DAOVaultMedium
+  #         file: ./abis/DAOVaultMedium.json
+  #       - name: YearnFarmerv2
+  #         file: ./abis/YearnFarmerv2.json
+  #     eventHandlers:
+  #       - event: Transfer(indexed address,indexed address,uint256)
+  #         handler: handleShareTransfer
+  #     file: ./src/mapping.ts
+  # - kind: ethereum/contract
+  #   name: DAOVaultMediumTUSD
+  #   network: mainnet
+  #   source:
+  #     address: "0x2C8de02aD4312069355B94Fb936EFE6CFE0C8FF6"
+  #     abi: DAOVaultMedium
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Account
+  #       - AccountVaultBalance
+  #       - Token
+  #       - Transfer
+  #       - Deposit
+  #       - Withdrawal
+  #       - Transaction
+  #       - FarmerToken
+  #     abis:
+  #       - name: ERC20
+  #         file: ./abis/ERC20.json
+  #       - name: yEarn
+  #         file: ./abis/yEarn.json
+  #       - name: yVault
+  #         file: ./abis/yVault.json
+  #       - name: DAOVaultMedium
+  #         file: ./abis/DAOVaultMedium.json
+  #       - name: YearnFarmerv2
+  #         file: ./abis/YearnFarmerv2.json
+  #     eventHandlers:
+  #       - event: Transfer(indexed address,indexed address,uint256)
+  #         handler: handleShareTransfer
+  #     file: ./src/mapping.ts
+  # - kind: ethereum/contract
+  #   name: DAOVaultLowUSDT
+  #   network: mainnet
+  #   source:
+  #     address: "0xEeCe6AD323a93d4B021BDAaC587DCC04b5cf0a78"
+  #     abi: DAOVaultLow
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Account
+  #       - AccountVaultBalance
+  #       - Token
+  #       - Transfer
+  #       - Deposit
+  #       - Withdrawal
+  #       - Transaction
+  #       - FarmerToken
+  #     abis:
+  #       - name: ERC20
+  #         file: ./abis/ERC20.json
+  #       - name: DAOVaultLow
+  #         file: ./abis/DAOVaultLow.json
+  #       - name: DAOVaultMedium
+  #         file: ./abis/DAOVaultMedium.json
+  #       - name: CompoundFarmer
+  #         file: ./abis/CompoundFarmer.json
+  #     eventHandlers:
+  #       - event: Transfer(indexed address,indexed address,uint256)
+  #         handler: handleCompoundShareTransfer
+  #     file: ./src/mapping.ts
+  # - kind: ethereum/contract
+  #   name: DAOVaultLowUSDC
+  #   network: mainnet
+  #   source:
+  #     address: "0xd1D7f950899C0269a7F2aad5E854cdc3a1350ba9"
+  #     abi: DAOVaultLow
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Account
+  #       - AccountVaultBalance
+  #       - Token
+  #       - Transfer
+  #       - Deposit
+  #       - Withdrawal
+  #       - Transaction
+  #       - FarmerToken
+  #     abis:
+  #       - name: ERC20
+  #         file: ./abis/ERC20.json
+  #       - name: DAOVaultLow
+  #         file: ./abis/DAOVaultLow.json
+  #       - name: DAOVaultMedium
+  #         file: ./abis/DAOVaultMedium.json
+  #       - name: CompoundFarmer
+  #         file: ./abis/CompoundFarmer.json
+  #     eventHandlers:
+  #       - event: Transfer(indexed address,indexed address,uint256)
+  #         handler: handleCompoundShareTransfer
+  #     file: ./src/mapping.ts
+  # - kind: ethereum/contract
+  #   name: DAOVaultLowDAI
+  #   network: mainnet
+  #   source:
+  #     address: "0x43C20638C3914Eca3c96e9cAc8ebE7d652Be45c6"
+  #     abi: DAOVaultLow
+  #   mapping:
+  #     kind: ethereum/events
+  #     apiVersion: 0.0.4
+  #     language: wasm/assemblyscript
+  #     entities:
+  #       - Account
+  #       - AccountVaultBalance
+  #       - Token
+  #       - Transfer
+  #       - Deposit
+  #       - Withdrawal
+  #       - Transaction
+  #       - FarmerToken
+  #     abis:
+  #       - name: ERC20
+  #         file: ./abis/ERC20.json
+  #       - name: DAOVaultLow
+  #         file: ./abis/DAOVaultLow.json
+  #       - name: DAOVaultMedium
+  #         file: ./abis/DAOVaultMedium.json
+  #       - name: CompoundFarmer
+  #         file: ./abis/CompoundFarmer.json
+  #     eventHandlers:
+  #       - event: Transfer(indexed address,indexed address,uint256)
+  #         handler: handleCompoundShareTransfer
+  #     file: ./src/mapping.ts
   - kind: ethereum/contract
-    name: DAOVaultMediumUSDT
-    network: mainnet
+    name: DAOVaultDAI
+    network: rinkeby
     source:
-      address: "0x4F0C1c9bA6B9CCd0BEd6166e86b672ac8EE621F7"
-      abi: DAOVaultMedium
+      address: "0xF6Cd30117E16FEacAeBD2BD30A6d682af6FB9844"
+      abi: DAOVault
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -25,24 +257,20 @@ dataSources:
       abis:
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: yEarn
-          file: ./abis/yEarn.json
-        - name: yVault
-          file: ./abis/yVault.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
-        - name: YearnFarmerv2
-          file: ./abis/YearnFarmerv2.json
+        - name: DAOVault
+          file: ./abis/DAOVault.json
+        - name: HarvestFarmer
+          file: ./abis/HarvestFarmer.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleShareTransfer
+          handler: handleHarvestShareTransfer
       file: ./src/mapping.ts
   - kind: ethereum/contract
-    name: DAOVaultMediumUSDC
-    network: mainnet
+    name: DAOVaultUSDC
+    network: rinkeby
     source:
-      address: "0x9f0230FbDC0379E5FefAcca89bE03A42Fec5fb6E"
-      abi: DAOVaultMedium
+      address: "0xefD426cee17809039c84Da8E37951C634901E427"
+      abi: DAOVault
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -59,24 +287,20 @@ dataSources:
       abis:
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: yEarn
-          file: ./abis/yEarn.json
-        - name: yVault
-          file: ./abis/yVault.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
-        - name: YearnFarmerv2
-          file: ./abis/YearnFarmerv2.json
+        - name: DAOVault
+          file: ./abis/DAOVault.json
+        - name: HarvestFarmer
+          file: ./abis/HarvestFarmer.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleShareTransfer
+          handler: handleHarvestShareTransfer
       file: ./src/mapping.ts
   - kind: ethereum/contract
-    name: DAOVaultMediumDAI
-    network: mainnet
+    name: DAOVaultUSDT
+    network: rinkeby
     source:
-      address: "0x2bFc2Da293C911e5FfeC4D2A2946A599Bc4Ae770"
-      abi: DAOVaultMedium
+      address: "0xb0f92a610E83602bf5dF258265dbE1561AE33e85"
+      abi: DAOVault
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -93,145 +317,11 @@ dataSources:
       abis:
         - name: ERC20
           file: ./abis/ERC20.json
-        - name: yEarn
-          file: ./abis/yEarn.json
-        - name: yVault
-          file: ./abis/yVault.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
-        - name: YearnFarmerv2
-          file: ./abis/YearnFarmerv2.json
+        - name: DAOVault
+          file: ./abis/DAOVault.json
+        - name: HarvestFarmer
+          file: ./abis/HarvestFarmer.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleShareTransfer
-      file: ./src/mapping.ts
-  - kind: ethereum/contract
-    name: DAOVaultMediumTUSD
-    network: mainnet
-    source:
-      address: "0x2C8de02aD4312069355B94Fb936EFE6CFE0C8FF6"
-      abi: DAOVaultMedium
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Account
-        - AccountVaultBalance
-        - Token
-        - Transfer
-        - Deposit
-        - Withdrawal
-        - Transaction
-        - FarmerToken
-      abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: yEarn
-          file: ./abis/yEarn.json
-        - name: yVault
-          file: ./abis/yVault.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
-        - name: YearnFarmerv2
-          file: ./abis/YearnFarmerv2.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleShareTransfer
-      file: ./src/mapping.ts
-  - kind: ethereum/contract
-    name: DAOVaultLowUSDT
-    network: mainnet
-    source:
-      address: "0xEeCe6AD323a93d4B021BDAaC587DCC04b5cf0a78"
-      abi: DAOVaultLow
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Account
-        - AccountVaultBalance
-        - Token
-        - Transfer
-        - Deposit
-        - Withdrawal
-        - Transaction
-        - FarmerToken
-      abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: DAOVaultLow
-          file: ./abis/DAOVaultLow.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
-        - name: CompoundFarmer
-          file: ./abis/CompoundFarmer.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleCompoundShareTransfer
-      file: ./src/mapping.ts
-  - kind: ethereum/contract
-    name: DAOVaultLowUSDC
-    network: mainnet
-    source:
-      address: "0xd1D7f950899C0269a7F2aad5E854cdc3a1350ba9"
-      abi: DAOVaultLow
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Account
-        - AccountVaultBalance
-        - Token
-        - Transfer
-        - Deposit
-        - Withdrawal
-        - Transaction
-        - FarmerToken
-      abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: DAOVaultLow
-          file: ./abis/DAOVaultLow.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
-        - name: CompoundFarmer
-          file: ./abis/CompoundFarmer.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleCompoundShareTransfer
-      file: ./src/mapping.ts
-  - kind: ethereum/contract
-    name: DAOVaultLowDAI
-    network: mainnet
-    source:
-      address: "0x43C20638C3914Eca3c96e9cAc8ebE7d652Be45c6"
-      abi: DAOVaultLow
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Account
-        - AccountVaultBalance
-        - Token
-        - Transfer
-        - Deposit
-        - Withdrawal
-        - Transaction
-        - FarmerToken
-      abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: DAOVaultLow
-          file: ./abis/DAOVaultLow.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
-        - name: CompoundFarmer
-          file: ./abis/CompoundFarmer.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleCompoundShareTransfer
+          handler: handleHarvestShareTransfer
       file: ./src/mapping.ts

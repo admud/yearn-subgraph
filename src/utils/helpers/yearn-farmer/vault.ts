@@ -6,8 +6,10 @@ import { getOrCreateToken } from "./token";
 import { getOrCreateEarnFarmerToken, getOrCreateVaultFarmerToken } from "./farmerToken";
 import { DAOVaultMedium } from "../../../../generated/DAOVaultMediumUSDT/DAOVaultMedium";
 import { DAOVaultLow } from "../../../../generated/DAOVaultLowUSDT/DAOVaultLow";
+import { DAOVault } from "../../../../generated/DAOVaultUSDT/DAOVault";
 import { YearnFarmerv2 } from "../../../../generated/DAOVaultMediumUSDT/YearnFarmerv2";
 import { CompoundFarmer } from "../../../../generated/DAOVaultLowUSDT/CompoundFarmer";
+import { HarvestFarmer } from "../../../../generated/DAOVaultDAI/HarvestFarmer";
 
 export function getOrCreateFarmer(
   vaultAddress: Address,
@@ -180,6 +182,85 @@ export function getOrCreateCompoundFarmer(
         vault.pool = toDecimal(
             vault.poolRaw,
             strategyContract.decimals()
+        )
+    }
+  }
+
+  return vault as Farmer;
+}
+
+export function getOrCreateHarvestFarmer(
+  vaultAddress: Address,
+  update: boolean = true
+): Farmer {
+  let vault = Farmer.load(vaultAddress.toHexString());
+  let vaultContract = DAOVault.bind(vaultAddress);
+
+  if (vault == null) {
+    vault = new Farmer(vaultAddress.toHexString());
+
+    // Initialize parsed values as BigDecimal 0
+    vault.earnPricePerFullShare = BIGDECIMAL_ZERO;
+    vault.vaultPricePerFullShare = BIGDECIMAL_ZERO;
+    vault.netDeposits = BIGDECIMAL_ZERO;
+    vault.totalDeposited = BIGDECIMAL_ZERO;
+    vault.totalWithdrawn = BIGDECIMAL_ZERO;
+    vault.totalActiveShares = BIGDECIMAL_ZERO;
+    vault.totalSharesMinted = BIGDECIMAL_ZERO;
+    vault.totalSharesBurned = BIGDECIMAL_ZERO;
+    vault.earnBalance = BIGDECIMAL_ZERO;
+    vault.vaultBalance = BIGDECIMAL_ZERO;
+    vault.totalSupply = BIGDECIMAL_ZERO;
+    vault.totalEarnings = BIGDECIMAL_ZERO;
+    vault.pool = BIGDECIMAL_ZERO;
+    vault.earnBalance = BIGDECIMAL_ZERO;
+    vault.vaultBalance = BIGDECIMAL_ZERO;
+
+    // Initialize raw values as BigInt 0
+    vault.netDepositsRaw = BIGINT_ZERO;
+    vault.totalDepositedRaw = BIGINT_ZERO;
+    vault.totalWithdrawnRaw = BIGINT_ZERO;
+    vault.totalActiveSharesRaw = BIGINT_ZERO;
+    vault.totalSharesMintedRaw = BIGINT_ZERO;
+    vault.totalSharesBurnedRaw = BIGINT_ZERO;
+    vault.vaultBalanceRaw = BIGINT_ZERO;
+    vault.totalSupplyRaw = BIGINT_ZERO;
+    vault.totalEarningsRaw = BIGINT_ZERO;
+    vault.earnPricePerFullShareRaw = BIGINT_ZERO;
+    vault.vaultPricePerFullShareRaw = BIGINT_ZERO;
+    vault.poolRaw = BIGINT_ZERO;
+    vault.earnBalanceRaw = BIGINT_ZERO;
+    vault.vaultBalanceRaw = BIGINT_ZERO;
+  }
+
+  if (update) {
+    let strategyAddress = vaultContract.try_strategy();
+    if (!strategyAddress.reverted) {
+        let strategyContract = HarvestFarmer.bind(vaultContract.strategy());
+
+        // Might be worth using the "try_" version of these calls in the future.
+        let underlyingTokenAddress = vaultContract.token();
+        let underlyingToken = getOrCreateToken(underlyingTokenAddress);
+
+
+        // The vault itself is an ERC20
+        let shareToken = getOrCreateToken(vaultAddress);
+        
+        let totalSupply = vaultContract.try_totalSupply();
+        vault.poolRaw = strategyContract.pool();
+        vault.totalSupplyRaw = !totalSupply.reverted
+        ? totalSupply.value
+        : vault.totalSupplyRaw;
+        vault.underlyingToken = underlyingToken.id;
+        vault.shareToken = shareToken.id;
+
+        vault.totalSupply = toDecimal(
+            vault.totalSupplyRaw,
+            vaultContract.decimals()
+        );
+        vault.pool = toDecimal(
+            vault.poolRaw,
+            vaultContract.decimals()
         )
     }
   }
