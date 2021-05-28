@@ -2,6 +2,8 @@ specVersion: 0.0.2
 description: Subgraph for DAOVault
 schema:
   file: ./schema.graphql
+features:
+  - nonFatalErrors
 dataSources:
   # Yearn Series
   ## Yearn Fighter USDT
