@@ -1,10 +1,22 @@
-import { Address, BigInt } from "@graphprotocol/graph-ts"
-import { Transfer } from "../generated/DAOVaultMediumUSDT/DAOVaultMedium";
+import { Address, BigInt } from "@graphprotocol/graph-ts";
+import { Transfer } from "../generated/YearnFighterUSDT/YearnFighter";
 import { Farmer } from "../generated/schema";
 import { BIGINT_ZERO, ZERO_ADDRESS } from "./utils/constants";
 import { toDecimal } from "./utils/decimals";
-import { getOrCreateAccount, getOrCreateAccountVaultBalance, getOrCreateFarmer, getOrCreateToken, getOrCreateCompoundFarmer, getOrCreateHarvestFarmer } from "./utils/helpers";
-import { getOrCreateTransaction, getOrCreateVaultDeposit, getOrCreateVaultTransfer, getOrCreateVaultWithdrawal } from "./utils/helpers/yearn-farmer/vault";
+import {
+  getOrCreateAccount,
+  getOrCreateAccountVaultBalance,
+  getOrCreateFarmer,
+  getOrCreateToken,
+  getOrCreateCompoundFarmer,
+  getOrCreateHarvestFarmer,
+} from "./utils/helpers";
+import {
+  getOrCreateTransaction,
+  getOrCreateVaultDeposit,
+  getOrCreateVaultTransfer,
+  getOrCreateVaultWithdrawal,
+} from "./utils/helpers/yearn-farmer/vault";
 
 function handleTransfer(
   event: Transfer,
@@ -67,23 +79,27 @@ function handleWithdrawal(
 
 export function handleShareTransfer(event: Transfer): void {
   let transactionId = event.address
-  .toHexString()
-  .concat("-")
-  .concat(event.transaction.hash.toHexString())
-  .concat("-")
-  .concat(event.logIndex.toString());
+    .toHexString()
+    .concat("-")
+    .concat(event.transaction.hash.toHexString())
+    .concat("-")
+    .concat(event.logIndex.toString());
 
   let farmer = getOrCreateFarmer(event.address);
   let fromAccount = getOrCreateAccount(event.params.from.toHexString());
   let toAccount = getOrCreateAccount(event.params.to.toHexString());
-  let underlyingToken = getOrCreateToken(Address.fromString(farmer.underlyingToken));
+  let underlyingToken = getOrCreateToken(
+    Address.fromString(farmer.underlyingToken)
+  );
   let shareToken = getOrCreateToken(Address.fromString(farmer.shareToken));
 
   let amount: BigInt;
-  
+
   // Actual value (amount) in underlying token
   if (farmer.totalSupplyRaw != BIGINT_ZERO) {
-    amount = event.params.value.times(farmer.poolRaw).div(farmer.totalSupplyRaw); 
+    amount = event.params.value
+      .times(farmer.poolRaw)
+      .div(farmer.totalSupplyRaw);
   } else {
     amount = event.params.value;
   }
@@ -95,7 +111,9 @@ export function handleShareTransfer(event: Transfer): void {
     fromAccount.id.concat("-").concat(farmer.id)
   );
 
-  let transaction = getOrCreateTransaction(event.transaction.hash.toHexString())
+  let transaction = getOrCreateTransaction(
+    event.transaction.hash.toHexString()
+  );
   transaction.blockNumber = event.block.number;
   transaction.timestamp = event.block.timestamp;
   transaction.transactionHash = event.transaction.hash;
@@ -122,13 +140,18 @@ export function handleShareTransfer(event: Transfer): void {
     toAccountBalance.farmer = farmer.id;
     toAccountBalance.shareToken = farmer.id;
     toAccountBalance.underlyingToken = farmer.underlyingToken;
-    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(amount);
-    toAccountBalance.shareBalanceRaw =
-      toAccountBalance.shareBalanceRaw.plus(event.params.value);
-    toAccountBalance.totalReceivedRaw =
-      toAccountBalance.totalReceivedRaw.plus(amount);
-    toAccountBalance.totalSharesReceivedRaw =
-      toAccountBalance.totalSharesReceivedRaw.plus(event.params.value);
+    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(
+      amount
+    );
+    toAccountBalance.shareBalanceRaw = toAccountBalance.shareBalanceRaw.plus(
+      event.params.value
+    );
+    toAccountBalance.totalReceivedRaw = toAccountBalance.totalReceivedRaw.plus(
+      amount
+    );
+    toAccountBalance.totalSharesReceivedRaw = toAccountBalance.totalSharesReceivedRaw.plus(
+      event.params.value
+    );
 
     toAccountBalance.netDeposits = toDecimal(
       toAccountBalance.netDepositsRaw,
@@ -152,13 +175,18 @@ export function handleShareTransfer(event: Transfer): void {
     fromAccountBalance.farmer = farmer.id;
     fromAccountBalance.shareToken = farmer.id;
     fromAccountBalance.underlyingToken = farmer.underlyingToken;
-    fromAccountBalance.netDepositsRaw =
-      fromAccountBalance.netDepositsRaw.minus(amount);
-    fromAccountBalance.shareBalanceRaw =
-      fromAccountBalance.shareBalanceRaw.minus(event.params.value);
-    fromAccountBalance.totalSentRaw = fromAccountBalance.totalSentRaw.plus(amount);
-    fromAccountBalance.totalSharesSentRaw =
-      fromAccountBalance.totalSharesSentRaw.plus(event.params.value);
+    fromAccountBalance.netDepositsRaw = fromAccountBalance.netDepositsRaw.minus(
+      amount
+    );
+    fromAccountBalance.shareBalanceRaw = fromAccountBalance.shareBalanceRaw.minus(
+      event.params.value
+    );
+    fromAccountBalance.totalSentRaw = fromAccountBalance.totalSentRaw.plus(
+      amount
+    );
+    fromAccountBalance.totalSharesSentRaw = fromAccountBalance.totalSharesSentRaw.plus(
+      event.params.value
+    );
 
     fromAccountBalance.netDeposits = toDecimal(
       fromAccountBalance.netDepositsRaw,
@@ -191,13 +219,18 @@ export function handleShareTransfer(event: Transfer): void {
     toAccountBalance.farmer = farmer.id;
     toAccountBalance.shareToken = farmer.id;
     toAccountBalance.underlyingToken = farmer.underlyingToken;
-    toAccountBalance.totalDepositedRaw =
-      toAccountBalance.totalDepositedRaw.plus(amount);
-    toAccountBalance.totalSharesMintedRaw =
-      toAccountBalance.totalSharesMintedRaw.plus(event.params.value);
-    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(amount);
-    toAccountBalance.shareBalanceRaw =
-      toAccountBalance.shareBalanceRaw.plus(event.params.value);
+    toAccountBalance.totalDepositedRaw = toAccountBalance.totalDepositedRaw.plus(
+      amount
+    );
+    toAccountBalance.totalSharesMintedRaw = toAccountBalance.totalSharesMintedRaw.plus(
+      event.params.value
+    );
+    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(
+      amount
+    );
+    toAccountBalance.shareBalanceRaw = toAccountBalance.shareBalanceRaw.plus(
+      event.params.value
+    );
 
     toAccountBalance.totalDeposited = toDecimal(
       toAccountBalance.totalDepositedRaw,
@@ -217,8 +250,9 @@ export function handleShareTransfer(event: Transfer): void {
     );
 
     farmer.totalDepositedRaw = farmer.totalDepositedRaw.plus(amount);
-    farmer.totalSharesMintedRaw =
-    farmer.totalSharesMintedRaw.plus(event.params.value);
+    farmer.totalSharesMintedRaw = farmer.totalSharesMintedRaw.plus(
+      event.params.value
+    );
 
     farmer.totalDeposited = toDecimal(
       farmer.totalDepositedRaw,
@@ -242,14 +276,18 @@ export function handleShareTransfer(event: Transfer): void {
     fromAccountBalance.farmer = farmer.id;
     fromAccountBalance.shareToken = farmer.id;
     fromAccountBalance.underlyingToken = farmer.underlyingToken;
-    fromAccountBalance.totalWithdrawnRaw =
-      fromAccountBalance.totalWithdrawnRaw.plus(amount);
-    fromAccountBalance.totalSharesBurnedRaw =
-      fromAccountBalance.totalSharesBurnedRaw.plus(event.params.value);
-    fromAccountBalance.netDepositsRaw =
-      fromAccountBalance.netDepositsRaw.minus(amount);
-    fromAccountBalance.shareBalanceRaw =
-      fromAccountBalance.shareBalanceRaw.minus(event.params.value);
+    fromAccountBalance.totalWithdrawnRaw = fromAccountBalance.totalWithdrawnRaw.plus(
+      amount
+    );
+    fromAccountBalance.totalSharesBurnedRaw = fromAccountBalance.totalSharesBurnedRaw.plus(
+      event.params.value
+    );
+    fromAccountBalance.netDepositsRaw = fromAccountBalance.netDepositsRaw.minus(
+      amount
+    );
+    fromAccountBalance.shareBalanceRaw = fromAccountBalance.shareBalanceRaw.minus(
+      event.params.value
+    );
 
     fromAccountBalance.totalWithdrawn = toDecimal(
       fromAccountBalance.totalWithdrawnRaw,
@@ -269,8 +307,9 @@ export function handleShareTransfer(event: Transfer): void {
     );
 
     farmer.totalWithdrawnRaw = farmer.totalWithdrawnRaw.plus(amount);
-    farmer.totalSharesBurnedRaw =
-    farmer.totalSharesBurnedRaw.plus(event.params.value);
+    farmer.totalSharesBurnedRaw = farmer.totalSharesBurnedRaw.plus(
+      event.params.value
+    );
 
     farmer.totalWithdrawn = toDecimal(
       farmer.totalWithdrawnRaw,
@@ -284,11 +323,17 @@ export function handleShareTransfer(event: Transfer): void {
     fromAccountBalance.save();
   }
 
-  farmer.netDepositsRaw = farmer.totalDepositedRaw.minus(farmer.totalWithdrawnRaw);
-  farmer.totalActiveSharesRaw =
-  farmer.totalSharesMintedRaw.minus(farmer.totalSharesBurnedRaw);
+  farmer.netDepositsRaw = farmer.totalDepositedRaw.minus(
+    farmer.totalWithdrawnRaw
+  );
+  farmer.totalActiveSharesRaw = farmer.totalSharesMintedRaw.minus(
+    farmer.totalSharesBurnedRaw
+  );
 
-  farmer.netDeposits = toDecimal(farmer.netDepositsRaw, underlyingToken.decimals);
+  farmer.netDeposits = toDecimal(
+    farmer.netDepositsRaw,
+    underlyingToken.decimals
+  );
   farmer.totalActiveShares = toDecimal(
     farmer.totalActiveSharesRaw,
     shareToken.decimals
@@ -301,23 +346,27 @@ export function handleShareTransfer(event: Transfer): void {
 
 export function handleCompoundShareTransfer(event: Transfer): void {
   let transactionId = event.address
-  .toHexString()
-  .concat("-")
-  .concat(event.transaction.hash.toHexString())
-  .concat("-")
-  .concat(event.logIndex.toString());
+    .toHexString()
+    .concat("-")
+    .concat(event.transaction.hash.toHexString())
+    .concat("-")
+    .concat(event.logIndex.toString());
 
   let farmer = getOrCreateCompoundFarmer(event.address);
   let fromAccount = getOrCreateAccount(event.params.from.toHexString());
   let toAccount = getOrCreateAccount(event.params.to.toHexString());
-  let underlyingToken = getOrCreateToken(Address.fromString(farmer.underlyingToken));
+  let underlyingToken = getOrCreateToken(
+    Address.fromString(farmer.underlyingToken)
+  );
   let shareToken = getOrCreateToken(Address.fromString(farmer.shareToken));
 
   let amount: BigInt;
-  
+
   // Actual value (amount) in underlying token
   if (farmer.totalSupplyRaw != BIGINT_ZERO) {
-    amount = event.params.value.times(farmer.poolRaw).div(farmer.totalSupplyRaw); 
+    amount = event.params.value
+      .times(farmer.poolRaw)
+      .div(farmer.totalSupplyRaw);
   } else {
     amount = event.params.value;
   }
@@ -329,7 +378,9 @@ export function handleCompoundShareTransfer(event: Transfer): void {
     fromAccount.id.concat("-").concat(farmer.id)
   );
 
-  let transaction = getOrCreateTransaction(event.transaction.hash.toHexString())
+  let transaction = getOrCreateTransaction(
+    event.transaction.hash.toHexString()
+  );
   transaction.blockNumber = event.block.number;
   transaction.timestamp = event.block.timestamp;
   transaction.transactionHash = event.transaction.hash;
@@ -356,13 +407,18 @@ export function handleCompoundShareTransfer(event: Transfer): void {
     toAccountBalance.farmer = farmer.id;
     toAccountBalance.shareToken = farmer.id;
     toAccountBalance.underlyingToken = farmer.underlyingToken;
-    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(amount);
-    toAccountBalance.shareBalanceRaw =
-      toAccountBalance.shareBalanceRaw.plus(event.params.value);
-    toAccountBalance.totalReceivedRaw =
-      toAccountBalance.totalReceivedRaw.plus(amount);
-    toAccountBalance.totalSharesReceivedRaw =
-      toAccountBalance.totalSharesReceivedRaw.plus(event.params.value);
+    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(
+      amount
+    );
+    toAccountBalance.shareBalanceRaw = toAccountBalance.shareBalanceRaw.plus(
+      event.params.value
+    );
+    toAccountBalance.totalReceivedRaw = toAccountBalance.totalReceivedRaw.plus(
+      amount
+    );
+    toAccountBalance.totalSharesReceivedRaw = toAccountBalance.totalSharesReceivedRaw.plus(
+      event.params.value
+    );
 
     toAccountBalance.netDeposits = toDecimal(
       toAccountBalance.netDepositsRaw,
@@ -386,13 +442,18 @@ export function handleCompoundShareTransfer(event: Transfer): void {
     fromAccountBalance.farmer = farmer.id;
     fromAccountBalance.shareToken = farmer.id;
     fromAccountBalance.underlyingToken = farmer.underlyingToken;
-    fromAccountBalance.netDepositsRaw =
-      fromAccountBalance.netDepositsRaw.minus(amount);
-    fromAccountBalance.shareBalanceRaw =
-      fromAccountBalance.shareBalanceRaw.minus(event.params.value);
-    fromAccountBalance.totalSentRaw = fromAccountBalance.totalSentRaw.plus(amount);
-    fromAccountBalance.totalSharesSentRaw =
-      fromAccountBalance.totalSharesSentRaw.plus(event.params.value);
+    fromAccountBalance.netDepositsRaw = fromAccountBalance.netDepositsRaw.minus(
+      amount
+    );
+    fromAccountBalance.shareBalanceRaw = fromAccountBalance.shareBalanceRaw.minus(
+      event.params.value
+    );
+    fromAccountBalance.totalSentRaw = fromAccountBalance.totalSentRaw.plus(
+      amount
+    );
+    fromAccountBalance.totalSharesSentRaw = fromAccountBalance.totalSharesSentRaw.plus(
+      event.params.value
+    );
 
     fromAccountBalance.netDeposits = toDecimal(
       fromAccountBalance.netDepositsRaw,
@@ -425,13 +486,18 @@ export function handleCompoundShareTransfer(event: Transfer): void {
     toAccountBalance.farmer = farmer.id;
     toAccountBalance.shareToken = farmer.id;
     toAccountBalance.underlyingToken = farmer.underlyingToken;
-    toAccountBalance.totalDepositedRaw =
-      toAccountBalance.totalDepositedRaw.plus(amount);
-    toAccountBalance.totalSharesMintedRaw =
-      toAccountBalance.totalSharesMintedRaw.plus(event.params.value);
-    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(amount);
-    toAccountBalance.shareBalanceRaw =
-      toAccountBalance.shareBalanceRaw.plus(event.params.value);
+    toAccountBalance.totalDepositedRaw = toAccountBalance.totalDepositedRaw.plus(
+      amount
+    );
+    toAccountBalance.totalSharesMintedRaw = toAccountBalance.totalSharesMintedRaw.plus(
+      event.params.value
+    );
+    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(
+      amount
+    );
+    toAccountBalance.shareBalanceRaw = toAccountBalance.shareBalanceRaw.plus(
+      event.params.value
+    );
 
     toAccountBalance.totalDeposited = toDecimal(
       toAccountBalance.totalDepositedRaw,
@@ -451,8 +517,9 @@ export function handleCompoundShareTransfer(event: Transfer): void {
     );
 
     farmer.totalDepositedRaw = farmer.totalDepositedRaw.plus(amount);
-    farmer.totalSharesMintedRaw =
-    farmer.totalSharesMintedRaw.plus(event.params.value);
+    farmer.totalSharesMintedRaw = farmer.totalSharesMintedRaw.plus(
+      event.params.value
+    );
 
     farmer.totalDeposited = toDecimal(
       farmer.totalDepositedRaw,
@@ -476,14 +543,18 @@ export function handleCompoundShareTransfer(event: Transfer): void {
     fromAccountBalance.farmer = farmer.id;
     fromAccountBalance.shareToken = farmer.id;
     fromAccountBalance.underlyingToken = farmer.underlyingToken;
-    fromAccountBalance.totalWithdrawnRaw =
-      fromAccountBalance.totalWithdrawnRaw.plus(amount);
-    fromAccountBalance.totalSharesBurnedRaw =
-      fromAccountBalance.totalSharesBurnedRaw.plus(event.params.value);
-    fromAccountBalance.netDepositsRaw =
-      fromAccountBalance.netDepositsRaw.minus(amount);
-    fromAccountBalance.shareBalanceRaw =
-      fromAccountBalance.shareBalanceRaw.minus(event.params.value);
+    fromAccountBalance.totalWithdrawnRaw = fromAccountBalance.totalWithdrawnRaw.plus(
+      amount
+    );
+    fromAccountBalance.totalSharesBurnedRaw = fromAccountBalance.totalSharesBurnedRaw.plus(
+      event.params.value
+    );
+    fromAccountBalance.netDepositsRaw = fromAccountBalance.netDepositsRaw.minus(
+      amount
+    );
+    fromAccountBalance.shareBalanceRaw = fromAccountBalance.shareBalanceRaw.minus(
+      event.params.value
+    );
 
     fromAccountBalance.totalWithdrawn = toDecimal(
       fromAccountBalance.totalWithdrawnRaw,
@@ -503,8 +574,9 @@ export function handleCompoundShareTransfer(event: Transfer): void {
     );
 
     farmer.totalWithdrawnRaw = farmer.totalWithdrawnRaw.plus(amount);
-    farmer.totalSharesBurnedRaw =
-    farmer.totalSharesBurnedRaw.plus(event.params.value);
+    farmer.totalSharesBurnedRaw = farmer.totalSharesBurnedRaw.plus(
+      event.params.value
+    );
 
     farmer.totalWithdrawn = toDecimal(
       farmer.totalWithdrawnRaw,
@@ -518,11 +590,17 @@ export function handleCompoundShareTransfer(event: Transfer): void {
     fromAccountBalance.save();
   }
 
-  farmer.netDepositsRaw = farmer.totalDepositedRaw.minus(farmer.totalWithdrawnRaw);
-  farmer.totalActiveSharesRaw =
-  farmer.totalSharesMintedRaw.minus(farmer.totalSharesBurnedRaw);
+  farmer.netDepositsRaw = farmer.totalDepositedRaw.minus(
+    farmer.totalWithdrawnRaw
+  );
+  farmer.totalActiveSharesRaw = farmer.totalSharesMintedRaw.minus(
+    farmer.totalSharesBurnedRaw
+  );
 
-  farmer.netDeposits = toDecimal(farmer.netDepositsRaw, underlyingToken.decimals);
+  farmer.netDeposits = toDecimal(
+    farmer.netDepositsRaw,
+    underlyingToken.decimals
+  );
   farmer.totalActiveShares = toDecimal(
     farmer.totalActiveSharesRaw,
     shareToken.decimals
@@ -535,23 +613,27 @@ export function handleCompoundShareTransfer(event: Transfer): void {
 
 export function handleHarvestShareTransfer(event: Transfer): void {
   let transactionId = event.address
-  .toHexString()
-  .concat("-")
-  .concat(event.transaction.hash.toHexString())
-  .concat("-")
-  .concat(event.logIndex.toString());
+    .toHexString()
+    .concat("-")
+    .concat(event.transaction.hash.toHexString())
+    .concat("-")
+    .concat(event.logIndex.toString());
 
   let farmer = getOrCreateHarvestFarmer(event.address);
   let fromAccount = getOrCreateAccount(event.params.from.toHexString());
   let toAccount = getOrCreateAccount(event.params.to.toHexString());
-  let underlyingToken = getOrCreateToken(Address.fromString(farmer.underlyingToken));
+  let underlyingToken = getOrCreateToken(
+    Address.fromString(farmer.underlyingToken)
+  );
   let shareToken = getOrCreateToken(Address.fromString(farmer.shareToken));
 
   let amount: BigInt;
-  
+
   // Actual value (amount) in underlying token
   if (farmer.totalSupplyRaw != BIGINT_ZERO) {
-    amount = event.params.value.times(farmer.poolRaw).div(farmer.totalSupplyRaw); 
+    amount = event.params.value
+      .times(farmer.poolRaw)
+      .div(farmer.totalSupplyRaw);
   } else {
     amount = event.params.value;
   }
@@ -563,7 +645,9 @@ export function handleHarvestShareTransfer(event: Transfer): void {
     fromAccount.id.concat("-").concat(farmer.id)
   );
 
-  let transaction = getOrCreateTransaction(event.transaction.hash.toHexString())
+  let transaction = getOrCreateTransaction(
+    event.transaction.hash.toHexString()
+  );
   transaction.blockNumber = event.block.number;
   transaction.timestamp = event.block.timestamp;
   transaction.transactionHash = event.transaction.hash;
@@ -590,13 +674,18 @@ export function handleHarvestShareTransfer(event: Transfer): void {
     toAccountBalance.farmer = farmer.id;
     toAccountBalance.shareToken = farmer.id;
     toAccountBalance.underlyingToken = farmer.underlyingToken;
-    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(amount);
-    toAccountBalance.shareBalanceRaw =
-      toAccountBalance.shareBalanceRaw.plus(event.params.value);
-    toAccountBalance.totalReceivedRaw =
-      toAccountBalance.totalReceivedRaw.plus(amount);
-    toAccountBalance.totalSharesReceivedRaw =
-      toAccountBalance.totalSharesReceivedRaw.plus(event.params.value);
+    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(
+      amount
+    );
+    toAccountBalance.shareBalanceRaw = toAccountBalance.shareBalanceRaw.plus(
+      event.params.value
+    );
+    toAccountBalance.totalReceivedRaw = toAccountBalance.totalReceivedRaw.plus(
+      amount
+    );
+    toAccountBalance.totalSharesReceivedRaw = toAccountBalance.totalSharesReceivedRaw.plus(
+      event.params.value
+    );
 
     toAccountBalance.netDeposits = toDecimal(
       toAccountBalance.netDepositsRaw,
@@ -620,13 +709,18 @@ export function handleHarvestShareTransfer(event: Transfer): void {
     fromAccountBalance.farmer = farmer.id;
     fromAccountBalance.shareToken = farmer.id;
     fromAccountBalance.underlyingToken = farmer.underlyingToken;
-    fromAccountBalance.netDepositsRaw =
-      fromAccountBalance.netDepositsRaw.minus(amount);
-    fromAccountBalance.shareBalanceRaw =
-      fromAccountBalance.shareBalanceRaw.minus(event.params.value);
-    fromAccountBalance.totalSentRaw = fromAccountBalance.totalSentRaw.plus(amount);
-    fromAccountBalance.totalSharesSentRaw =
-      fromAccountBalance.totalSharesSentRaw.plus(event.params.value);
+    fromAccountBalance.netDepositsRaw = fromAccountBalance.netDepositsRaw.minus(
+      amount
+    );
+    fromAccountBalance.shareBalanceRaw = fromAccountBalance.shareBalanceRaw.minus(
+      event.params.value
+    );
+    fromAccountBalance.totalSentRaw = fromAccountBalance.totalSentRaw.plus(
+      amount
+    );
+    fromAccountBalance.totalSharesSentRaw = fromAccountBalance.totalSharesSentRaw.plus(
+      event.params.value
+    );
 
     fromAccountBalance.netDeposits = toDecimal(
       fromAccountBalance.netDepositsRaw,
@@ -659,13 +753,18 @@ export function handleHarvestShareTransfer(event: Transfer): void {
     toAccountBalance.farmer = farmer.id;
     toAccountBalance.shareToken = farmer.id;
     toAccountBalance.underlyingToken = farmer.underlyingToken;
-    toAccountBalance.totalDepositedRaw =
-      toAccountBalance.totalDepositedRaw.plus(amount);
-    toAccountBalance.totalSharesMintedRaw =
-      toAccountBalance.totalSharesMintedRaw.plus(event.params.value);
-    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(amount);
-    toAccountBalance.shareBalanceRaw =
-      toAccountBalance.shareBalanceRaw.plus(event.params.value);
+    toAccountBalance.totalDepositedRaw = toAccountBalance.totalDepositedRaw.plus(
+      amount
+    );
+    toAccountBalance.totalSharesMintedRaw = toAccountBalance.totalSharesMintedRaw.plus(
+      event.params.value
+    );
+    toAccountBalance.netDepositsRaw = toAccountBalance.netDepositsRaw.plus(
+      amount
+    );
+    toAccountBalance.shareBalanceRaw = toAccountBalance.shareBalanceRaw.plus(
+      event.params.value
+    );
 
     toAccountBalance.totalDeposited = toDecimal(
       toAccountBalance.totalDepositedRaw,
@@ -685,8 +784,9 @@ export function handleHarvestShareTransfer(event: Transfer): void {
     );
 
     farmer.totalDepositedRaw = farmer.totalDepositedRaw.plus(amount);
-    farmer.totalSharesMintedRaw =
-    farmer.totalSharesMintedRaw.plus(event.params.value);
+    farmer.totalSharesMintedRaw = farmer.totalSharesMintedRaw.plus(
+      event.params.value
+    );
 
     farmer.totalDeposited = toDecimal(
       farmer.totalDepositedRaw,
@@ -710,14 +810,18 @@ export function handleHarvestShareTransfer(event: Transfer): void {
     fromAccountBalance.farmer = farmer.id;
     fromAccountBalance.shareToken = farmer.id;
     fromAccountBalance.underlyingToken = farmer.underlyingToken;
-    fromAccountBalance.totalWithdrawnRaw =
-      fromAccountBalance.totalWithdrawnRaw.plus(amount);
-    fromAccountBalance.totalSharesBurnedRaw =
-      fromAccountBalance.totalSharesBurnedRaw.plus(event.params.value);
-    fromAccountBalance.netDepositsRaw =
-      fromAccountBalance.netDepositsRaw.minus(amount);
-    fromAccountBalance.shareBalanceRaw =
-      fromAccountBalance.shareBalanceRaw.minus(event.params.value);
+    fromAccountBalance.totalWithdrawnRaw = fromAccountBalance.totalWithdrawnRaw.plus(
+      amount
+    );
+    fromAccountBalance.totalSharesBurnedRaw = fromAccountBalance.totalSharesBurnedRaw.plus(
+      event.params.value
+    );
+    fromAccountBalance.netDepositsRaw = fromAccountBalance.netDepositsRaw.minus(
+      amount
+    );
+    fromAccountBalance.shareBalanceRaw = fromAccountBalance.shareBalanceRaw.minus(
+      event.params.value
+    );
 
     fromAccountBalance.totalWithdrawn = toDecimal(
       fromAccountBalance.totalWithdrawnRaw,
@@ -737,8 +841,9 @@ export function handleHarvestShareTransfer(event: Transfer): void {
     );
 
     farmer.totalWithdrawnRaw = farmer.totalWithdrawnRaw.plus(amount);
-    farmer.totalSharesBurnedRaw =
-    farmer.totalSharesBurnedRaw.plus(event.params.value);
+    farmer.totalSharesBurnedRaw = farmer.totalSharesBurnedRaw.plus(
+      event.params.value
+    );
 
     farmer.totalWithdrawn = toDecimal(
       farmer.totalWithdrawnRaw,
@@ -752,11 +857,17 @@ export function handleHarvestShareTransfer(event: Transfer): void {
     fromAccountBalance.save();
   }
 
-  farmer.netDepositsRaw = farmer.totalDepositedRaw.minus(farmer.totalWithdrawnRaw);
-  farmer.totalActiveSharesRaw =
-  farmer.totalSharesMintedRaw.minus(farmer.totalSharesBurnedRaw);
+  farmer.netDepositsRaw = farmer.totalDepositedRaw.minus(
+    farmer.totalWithdrawnRaw
+  );
+  farmer.totalActiveSharesRaw = farmer.totalSharesMintedRaw.minus(
+    farmer.totalSharesBurnedRaw
+  );
 
-  farmer.netDeposits = toDecimal(farmer.netDepositsRaw, underlyingToken.decimals);
+  farmer.netDeposits = toDecimal(
+    farmer.netDepositsRaw,
+    underlyingToken.decimals
+  );
   farmer.totalActiveShares = toDecimal(
     farmer.totalActiveSharesRaw,
     shareToken.decimals

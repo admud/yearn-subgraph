@@ -10,7 +10,7 @@ dataSources:
     network: kovan
     source:
       address: "0x6B150E9BD70E216775c8b73270E64e870a3110c1"
-      abi: DAOVaultMedium
+      abi: YearnFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -25,16 +25,16 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
+        - name: YearnFighter
+          file: ./abis/YearnFighter.json
+        - name: YearnFarmerv2
+          file: ./abis/YearnFarmerv2.json
         - name: ERC20
           file: ./abis/ERC20.json
         - name: yEarn
           file: ./abis/yEarn.json
         - name: yVault
           file: ./abis/yVault.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
-        - name: YearnFarmerv2
-          file: ./abis/YearnFarmerv2.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleShareTransfer
@@ -46,7 +46,7 @@ dataSources:
     network: kovan
     source:
       address: "0x6E15e283dc430eca010Ade8b11b5B377902d6e56"
-      abi: DAOVaultMedium
+      abi: YearnFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -61,14 +61,8 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: yEarn
-          file: ./abis/yEarn.json
-        - name: yVault
-          file: ./abis/yVault.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
+        - name: YearnFighter
+          file: ./abis/YearnFighter.json
         - name: YearnFarmerv2
           file: ./abis/YearnFarmerv2.json
       eventHandlers:
@@ -82,7 +76,7 @@ dataSources:
     network: kovan
     source:
       address: "0x2428bFD238a3632552B343297c504F60283009eD"
-      abi: DAOVaultMedium
+      abi: YearnFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -97,14 +91,8 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: yEarn
-          file: ./abis/yEarn.json
-        - name: yVault
-          file: ./abis/yVault.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
+        - name: YearnFighter
+          file: ./abis/YearnFighter.json
         - name: YearnFarmerv2
           file: ./abis/YearnFarmerv2.json
       eventHandlers:
@@ -118,7 +106,7 @@ dataSources:
     network: kovan
     source:
       address: "0xEcCb98c36bfc8c49c6065d1cD90bcf1c6F02D4AD"
-      abi: DAOVaultMedium
+      abi: YearnFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -133,14 +121,8 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: yEarn
-          file: ./abis/yEarn.json
-        - name: yVault
-          file: ./abis/yVault.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
+        - name: YearnFighter
+          file: ./abis/YearnFighter.json
         - name: YearnFarmerv2
           file: ./abis/YearnFarmerv2.json
       eventHandlers:
@@ -155,7 +137,7 @@ dataSources:
     network: kovan
     source:
       address: "0x5d102E0Bdf2037899E1FF2E8cc50987108533c52"
-      abi: DAOVaultLow
+      abi: CompoundFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -170,12 +152,8 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: DAOVaultLow
-          file: ./abis/DAOVaultLow.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
+        - name: CompoundFighter
+          file: ./abis/CompoundFighter.json
         - name: CompoundFarmer
           file: ./abis/CompoundFarmer.json
       eventHandlers:
@@ -189,7 +167,7 @@ dataSources:
     network: kovan
     source:
       address: "0x05AB7659e6Ef9Ba1a5F790b402fD1688F01b003E"
-      abi: DAOVaultLow
+      abi: CompoundFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -204,12 +182,8 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: DAOVaultLow
-          file: ./abis/DAOVaultLow.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
+        - name: CompoundFighter
+          file: ./abis/CompoundFighter.json
         - name: CompoundFarmer
           file: ./abis/CompoundFarmer.json
       eventHandlers:
@@ -223,7 +197,7 @@ dataSources:
     network: kovan
     source:
       address: "0x47E565B1e23cdA3D6bB69e7ae398b884f5ADdc7D"
-      abi: DAOVaultLow
+      abi: CompoundFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -238,12 +212,8 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: DAOVaultLow
-          file: ./abis/DAOVaultLow.json
-        - name: DAOVaultMedium
-          file: ./abis/DAOVaultMedium.json
+        - name: CompoundFighter
+          file: ./abis/CompoundFighter.json
         - name: CompoundFarmer
           file: ./abis/CompoundFarmer.json
       eventHandlers:
@@ -258,7 +228,7 @@ dataSources:
     network: kovan
     source:
       address: "0xb41A49De82e95dc1E028839C3440Ac97f9A7832C"
-      abi: DAOVault
+      abi: HarvestFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -273,13 +243,13 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
         - name: HarvestFighter
           file: ./abis/HarvestFighter.json
+        - name: HarvestFarmer
+          file: ./abis/HarvestFarmer.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleCompoundShareTransfer
+          handler: handleHarvestShareTransfer
       file: ./src/mapping.ts
 
   ## Harvest Fighter USDC
@@ -288,7 +258,7 @@ dataSources:
     network: kovan
     source:
       address: "0x54783464848b35d6fb9bba37C1dDd23aC3B1A11A"
-      abi: DAOVault
+      abi: HarvestFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -303,13 +273,13 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
         - name: HarvestFighter
           file: ./abis/HarvestFighter.json
+        - name: HarvestFarmer
+          file: ./abis/HarvestFarmer.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleCompoundShareTransfer
+          handler: handleHarvestShareTransfer
       file: ./src/mapping.ts
 
   ## Harvest Fighter DAI
@@ -317,8 +287,8 @@ dataSources:
     name: HarvestFighterDAI
     network: kovan
     source:
-      address: 0x0f89EE5b95d1d5cfb10F29775d816fC6D8Adb9FC"
-      abi: DAOVault
+      address: "0x0f89EE5b95d1d5cfb10F29775d816fC6D8Adb9FC"
+      abi: HarvestFighter
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -333,100 +303,8 @@ dataSources:
         - Transaction
         - FarmerToken
       abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
         - name: HarvestFighter
           file: ./abis/HarvestFighter.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleCompoundShareTransfer
-      file: ./src/mapping.ts
-
-  # Old Contracts
-  - kind: ethereum/contract
-    name: DAOVaultDAI
-    network: rinkeby
-    source:
-      address: "0xF6Cd30117E16FEacAeBD2BD30A6d682af6FB9844"
-      abi: DAOVault
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Account
-        - AccountVaultBalance
-        - Token
-        - Transfer
-        - Deposit
-        - Withdrawal
-        - Transaction
-        - FarmerToken
-      abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: DAOVault
-          file: ./abis/DAOVault.json
-        - name: HarvestFarmer
-          file: ./abis/HarvestFarmer.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleHarvestShareTransfer
-      file: ./src/mapping.ts
-  - kind: ethereum/contract
-    name: DAOVaultUSDC
-    network: rinkeby
-    source:
-      address: "0xefD426cee17809039c84Da8E37951C634901E427"
-      abi: DAOVault
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Account
-        - AccountVaultBalance
-        - Token
-        - Transfer
-        - Deposit
-        - Withdrawal
-        - Transaction
-        - FarmerToken
-      abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: DAOVault
-          file: ./abis/DAOVault.json
-        - name: HarvestFarmer
-          file: ./abis/HarvestFarmer.json
-      eventHandlers:
-        - event: Transfer(indexed address,indexed address,uint256)
-          handler: handleHarvestShareTransfer
-      file: ./src/mapping.ts
-  - kind: ethereum/contract
-    name: DAOVaultUSDT
-    network: rinkeby
-    source:
-      address: "0xb0f92a610E83602bf5dF258265dbE1561AE33e85"
-      abi: DAOVault
-    mapping:
-      kind: ethereum/events
-      apiVersion: 0.0.4
-      language: wasm/assemblyscript
-      entities:
-        - Account
-        - AccountVaultBalance
-        - Token
-        - Transfer
-        - Deposit
-        - Withdrawal
-        - Transaction
-        - FarmerToken
-      abis:
-        - name: ERC20
-          file: ./abis/ERC20.json
-        - name: DAOVault
-          file: ./abis/DAOVault.json
         - name: HarvestFarmer
           file: ./abis/HarvestFarmer.json
       eventHandlers:
