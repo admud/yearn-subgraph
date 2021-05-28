@@ -1,5 +1,5 @@
 import { Address, BigInt } from "@graphprotocol/graph-ts"
-import { Transfer } from "../generated/DAOVaultMediumUSDT/DAOVaultMedium";
+import { Transfer } from "../generated/YearnFighterUSDT/DAOVaultMedium";
 import { Farmer } from "../generated/schema";
 import { BIGINT_ZERO, ZERO_ADDRESS } from "./utils/constants";
 import { toDecimal } from "./utils/decimals";
