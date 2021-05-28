@@ -4,12 +4,12 @@ import { BIGDECIMAL_ZERO, BIGINT_ZERO } from "../../constants";
 import { toDecimal } from "../../decimals";
 import { getOrCreateToken } from "./token";
 import { getOrCreateEarnFarmerToken, getOrCreateVaultFarmerToken } from "./farmerToken";
-import { DAOVaultMedium } from "../../../../generated/YearnFighterUSDT/DAOVaultMedium";
-import { DAOVaultLow } from "../../../../generated/CompoundFighterUSDT/DAOVaultLow";
-// import { DAOVault } from "../../../../generated/DAOVaultUSDT/DAOVault";
-import { YearnFarmerv2 } from "../../../../generated/YearnFighterUSDT/YearnFarmerv2";
-import { CompoundFarmer } from "../../../../generated/CompoundFighterUSDT/CompoundFarmer";
-import { HarvestFighter } from "../../../../generated/HarvestFighterDAI/HarvestFighter";
+import { DAOVaultMedium } from "../../../../generated/DAOVaultMediumUSDT/DAOVaultMedium";
+import { DAOVaultLow } from "../../../../generated/DAOVaultLowUSDT/DAOVaultLow";
+import { DAOVault } from "../../../../generated/DAOVaultUSDT/DAOVault";
+import { YearnFarmerv2 } from "../../../../generated/DAOVaultMediumUSDT/YearnFarmerv2";
+import { CompoundFarmer } from "../../../../generated/DAOVaultLowUSDT/CompoundFarmer";
+import { HarvestFarmer } from "../../../../generated/DAOVaultDAI/HarvestFarmer";
 
 export function getOrCreateFarmer(
   vaultAddress: Address,
@@ -194,7 +194,7 @@ export function getOrCreateHarvestFarmer(
   update: boolean = true
 ): Farmer {
   let vault = Farmer.load(vaultAddress.toHexString());
-  // let vaultContract = DAOVault.bind(vaultAddress);
+  let vaultContract = DAOVault.bind(vaultAddress);
 
   if (vault == null) {
     vault = new Farmer(vaultAddress.toHexString());
@@ -233,37 +233,37 @@ export function getOrCreateHarvestFarmer(
     vault.vaultBalanceRaw = BIGINT_ZERO;
   }
 
-  // if (update) {
-  //   let strategyAddress = vaultContract.try_strategy();
-  //   if (!strategyAddress.reverted) {
-  //       let strategyContract = HarvestFighter.bind(vaultContract.strategy());
+  if (update) {
+    let strategyAddress = vaultContract.try_strategy();
+    if (!strategyAddress.reverted) {
+        let strategyContract = HarvestFarmer.bind(vaultContract.strategy());
 
-  //       // Might be worth using the "try_" version of these calls in the future.
-  //       let underlyingTokenAddress = vaultContract.token();
-  //       let underlyingToken = getOrCreateToken(underlyingTokenAddress);
+        // Might be worth using the "try_" version of these calls in the future.
+        let underlyingTokenAddress = vaultContract.token();
+        let underlyingToken = getOrCreateToken(underlyingTokenAddress);
 
 
-  //       // The vault itself is an ERC20
-  //       let shareToken = getOrCreateToken(vaultAddress);
+        // The vault itself is an ERC20
+        let shareToken = getOrCreateToken(vaultAddress);
         
-  //       let totalSupply = vaultContract.try_totalSupply();
-  //       vault.poolRaw = strategyContract.pool();
-  //       vault.totalSupplyRaw = !totalSupply.reverted
-  //       ? totalSupply.value
-  //       : vault.totalSupplyRaw;
-  //       vault.underlyingToken = underlyingToken.id;
-  //       vault.shareToken = shareToken.id;
+        let totalSupply = vaultContract.try_totalSupply();
+        vault.poolRaw = strategyContract.pool();
+        vault.totalSupplyRaw = !totalSupply.reverted
+        ? totalSupply.value
+        : vault.totalSupplyRaw;
+        vault.underlyingToken = underlyingToken.id;
+        vault.shareToken = shareToken.id;
 
-  //       vault.totalSupply = toDecimal(
-  //           vault.totalSupplyRaw,
-  //           vaultContract.decimals()
-  //       );
-  //       vault.pool = toDecimal(
-  //           vault.poolRaw,
-  //           vaultContract.decimals()
-  //       )
-  //   }
-  // }
+        vault.totalSupply = toDecimal(
+            vault.totalSupplyRaw,
+            vaultContract.decimals()
+        );
+        vault.pool = toDecimal(
+            vault.poolRaw,
+            vaultContract.decimals()
+        )
+    }
+  }
 
   return vault as Farmer;
 }

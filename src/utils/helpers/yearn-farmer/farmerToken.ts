@@ -2,8 +2,8 @@ import { Address } from "@graphprotocol/graph-ts";
 import { FarmerToken } from "../../../../generated/schema";
 import { BIGINT_ZERO } from "../../constants";
 import { DEFAULT_DECIMALS } from "../../decimals";
-import { yEarn } from '../../../../generated/YearnFighterUSDT/yEarn';
-import { yVault } from '../../../../generated/YearnFighterUSDT/yVault';
+import { yEarn } from '../../../../generated/DAOVaultMediumUSDT/yEarn';
+import { yVault } from '../../../../generated/DAOVaultMediumUSDT/yVault';
 
 export function getOrCreateEarnFarmerToken(
   tokenAddress: Address,
