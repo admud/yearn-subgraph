@@ -4,12 +4,12 @@ import { BIGDECIMAL_ZERO, BIGINT_ZERO } from "../../constants";
 import { toDecimal } from "../../decimals";
 import { getOrCreateToken } from "./token";
 import { getOrCreateEarnFarmerToken, getOrCreateVaultFarmerToken } from "./farmerToken";
-import { DAOVaultMedium } from "../../../../generated/DAOVaultMediumUSDT/DAOVaultMedium";
-import { DAOVaultLow } from "../../../../generated/DAOVaultLowUSDT/DAOVaultLow";
-import { DAOVault } from "../../../../generated/DAOVaultUSDT/DAOVault";
-import { YearnFarmerv2 } from "../../../../generated/DAOVaultMediumUSDT/YearnFarmerv2";
-import { CompoundFarmer } from "../../../../generated/DAOVaultLowUSDT/CompoundFarmer";
-import { HarvestFarmer } from "../../../../generated/DAOVaultDAI/HarvestFarmer";
+import { DAOVaultMedium } from "../../../../generated/YearnFighterUSDT/DAOVaultMedium";
+import { DAOVaultLow } from "../../../../generated/CompoundFighterUSDT/DAOVaultLow";
+import { DAOHarvestFighter } from "../../../../generated/DAOHarvestFighterUSDT/DAOHarvestFighter";
+import { YearnFarmerv2 } from "../../../../generated/YearnFighterUSDT/YearnFarmerv2";
+import { CompoundFarmer } from "../../../../generated/CompoundFighterUSDT/CompoundFarmer";
+import { HarvestFarmer } from "../../../../generated/DAOHarvestFighterUSDT/HarvestFarmer";
 
 export function getOrCreateFarmer(
   vaultAddress: Address,
@@ -194,7 +194,7 @@ export function getOrCreateHarvestFarmer(
   update: boolean = true
 ): Farmer {
   let vault = Farmer.load(vaultAddress.toHexString());
-  let vaultContract = DAOVault.bind(vaultAddress);
+  let vaultContract = DAOHarvestFighter.bind(vaultAddress);
 
   if (vault == null) {
     vault = new Farmer(vaultAddress.toHexString());
