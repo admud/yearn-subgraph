@@ -246,9 +246,9 @@ dataSources:
     name: DAOVaultCitadel
     network: kovan
     source:
-      address: "0x00ba7142D3ea3f59A69cC37BfCeA4CEbf68C63aA"
+      address: "0x542a42496C96b946324f7dce2B030d5643d9eF8A"
       abi: Citadel
-      startBlock: 25098423
+      startBlock: 25156223
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -272,8 +272,8 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleCitadelShareTransfer
-        - event: Deposit(indexed address,address,uint256)
+        - event: Deposit(indexed address,address,uint256,uint256)
           handler: handleCitadelDeposit
-        - event: Withdraw(indexed address,address,uint256)
+        - event: Withdraw(indexed address,address,uint256,uint256)
           handler: handleCitadelWithdraw
       file: ./src/mapping.ts
