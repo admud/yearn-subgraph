@@ -243,91 +243,97 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleCompoundShareTransfer
       file: ./src/mapping.ts
-  # # Harvest Series
-  # ## Harvest Fighter USDT
-  # - kind: ethereum/contract
-  #   name: HarvestFighterUSDT
-  #   network: kovan
-  #   source:
-  #     address: "0xb41A49De82e95dc1E028839C3440Ac97f9A7832C"
-  #     abi: HarvestFighter
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.4
-  #     language: wasm/assemblyscript
-  #     entities:
-  #       - Account
-  #       - AccountVaultBalance
-  #       - Token
-  #       - Transfer
-  #       - Deposit
-  #       - Withdrawal
-  #       - Transaction
-  #       - FarmerToken
-  #     abis:
-  #       - name: HarvestFighter
-  #         file: ./abis/HarvestFighter.json
-  #       - name: HarvestFarmer
-  #         file: ./abis/HarvestFarmer.json
-  #     eventHandlers:
-  #       - event: Transfer(indexed address,indexed address,uint256)
-  #         handler: handleHarvestShareTransfer
-  #     file: ./src/mapping.ts
-  # ## Harvest Fighter USDC
-  # - kind: ethereum/contract
-  #   name: HarvestFighterUSDC
-  #   network: kovan
-  #   source:
-  #     address: "0x54783464848b35d6fb9bba37C1dDd23aC3B1A11A"
-  #     abi: HarvestFighter
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.4
-  #     language: wasm/assemblyscript
-  #     entities:
-  #       - Account
-  #       - AccountVaultBalance
-  #       - Token
-  #       - Transfer
-  #       - Deposit
-  #       - Withdrawal
-  #       - Transaction
-  #       - FarmerToken
-  #     abis:
-  #       - name: HarvestFighter
-  #         file: ./abis/HarvestFighter.json
-  #       - name: HarvestFarmer
-  #         file: ./abis/HarvestFarmer.json
-  #     eventHandlers:
-  #       - event: Transfer(indexed address,indexed address,uint256)
-  #         handler: handleHarvestShareTransfer
-  #     file: ./src/mapping.ts
-  # ## Harvest Fighter DAI
-  # - kind: ethereum/contract
-  #   name: HarvestFighterDAI
-  #   network: kovan
-  #   source:
-  #     address: "0x0f89EE5b95d1d5cfb10F29775d816fC6D8Adb9FC"
-  #     abi: HarvestFighter
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.4
-  #     language: wasm/assemblyscript
-  #     entities:
-  #       - Account
-  #       - AccountVaultBalance
-  #       - Token
-  #       - Transfer
-  #       - Deposit
-  #       - Withdrawal
-  #       - Transaction
-  #       - FarmerToken
-  #     abis:
-  #       - name: HarvestFighter
-  #         file: ./abis/HarvestFighter.json
-  #       - name: HarvestFarmer
-  #         file: ./abis/HarvestFarmer.json
-  #     eventHandlers:
-  #       - event: Transfer(indexed address,indexed address,uint256)
-  #         handler: handleHarvestShareTransfer
-  #     file: ./src/mapping.ts
+  # Harvest Series
+  ## Harvest Fighter USDT
+  - kind: ethereum/contract
+    name: HarvestFighterUSDT
+    network: kovan
+    source:
+      address: "0xb41A49De82e95dc1E028839C3440Ac97f9A7832C"
+      abi: HarvestFighter
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: HarvestFighter
+          file: ./abis/HarvestFighter.json
+        - name: HarvestFarmer
+          file: ./abis/HarvestFarmer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleHarvestShareTransfer
+      file: ./src/mapping.ts
+  ## Harvest Fighter USDC
+  - kind: ethereum/contract
+    name: HarvestFighterUSDC
+    network: kovan
+    source:
+      address: "0x54783464848b35d6fb9bba37C1dDd23aC3B1A11A"
+      abi: HarvestFighter
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: HarvestFighter
+          file: ./abis/HarvestFighter.json
+        - name: HarvestFarmer
+          file: ./abis/HarvestFarmer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleHarvestShareTransfer
+      file: ./src/mapping.ts
+  ## Harvest Fighter DAI
+  - kind: ethereum/contract
+    name: HarvestFighterDAI
+    network: kovan
+    source:
+      address: "0x0f89EE5b95d1d5cfb10F29775d816fC6D8Adb9FC"
+      abi: HarvestFighter
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: HarvestFighter
+          file: ./abis/HarvestFighter.json
+        - name: HarvestFarmer
+          file: ./abis/HarvestFarmer.json
+        - name: ERC20
+          file: ./abis/ERC20.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleHarvestShareTransfer
+      file: ./src/mapping.ts
