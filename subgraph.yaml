@@ -2,8 +2,7 @@ specVersion: 0.0.2
 description: Subgraph for DAOVault
 schema:
   file: ./schema.graphql
-features:
-  - nonFatalErrors
+
 dataSources:
   # Yearn Series
   ## Yearn Fighter USDT
@@ -12,6 +11,7 @@ dataSources:
     network: kovan
     source:
       address: "0x6B150E9BD70E216775c8b73270E64e870a3110c1"
+      startBlock: 24705457
       abi: YearnFighter
     mapping:
       kind: ethereum/events
@@ -48,6 +48,7 @@ dataSources:
     network: kovan
     source:
       address: "0x6E15e283dc430eca010Ade8b11b5B377902d6e56"
+      startBlock: 24705463
       abi: YearnFighter
     mapping:
       kind: ethereum/events
@@ -84,6 +85,7 @@ dataSources:
     network: kovan
     source:
       address: "0x2428bFD238a3632552B343297c504F60283009eD"
+      startBlock: 24705468
       abi: YearnFighter
     mapping:
       kind: ethereum/events
@@ -120,6 +122,7 @@ dataSources:
     network: kovan
     source:
       address: "0xEcCb98c36bfc8c49c6065d1cD90bcf1c6F02D4AD"
+      startBlock: 24738659
       abi: YearnFighter
     mapping:
       kind: ethereum/events
@@ -156,6 +159,7 @@ dataSources:
     network: kovan
     source:
       address: "0x5d102E0Bdf2037899E1FF2E8cc50987108533c52"
+      startBlock: 24070008
       abi: CompoundFighter
     mapping:
       kind: ethereum/events
@@ -187,6 +191,7 @@ dataSources:
     network: kovan
     source:
       address: "0x05AB7659e6Ef9Ba1a5F790b402fD1688F01b003E"
+      startBlock: 24069986
       abi: CompoundFighter
     mapping:
       kind: ethereum/events
@@ -218,6 +223,7 @@ dataSources:
     network: kovan
     source:
       address: "0x47E565B1e23cdA3D6bB69e7ae398b884f5ADdc7D"
+      startBlock: 24069965
       abi: CompoundFighter
     mapping:
       kind: ethereum/events
@@ -243,6 +249,7 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleCompoundShareTransfer
       file: ./src/mapping.ts
+
   # Harvest Series
   ## Harvest Fighter USDT
   - kind: ethereum/contract
@@ -275,6 +282,7 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleHarvestShareTransfer
       file: ./src/mapping.ts
+
   ## Harvest Fighter USDC
   - kind: ethereum/contract
     name: HarvestFighterUSDC
@@ -306,6 +314,7 @@ dataSources:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleHarvestShareTransfer
       file: ./src/mapping.ts
+
   ## Harvest Fighter DAI
   - kind: ethereum/contract
     name: HarvestFighterDAI
@@ -336,4 +345,41 @@ dataSources:
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleHarvestShareTransfer
+      file: ./src/mapping.ts
+
+  # DAO Vault Citadel
+  - kind: ethereum/contract
+    name: DAOVaultCitadel
+    network: kovan
+    source:
+      address: "0x542a42496C96b946324f7dce2B030d5643d9eF8A"
+      abi: Citadel
+      startBlock: 25156223
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Account
+        - AccountVaultBalance
+        - Token
+        - Transfer
+        - Deposit
+        - Withdrawal
+        - Transaction
+        - FarmerToken
+      abis:
+        - name: ERC20
+          file: ./abis/ERC20.json
+        - name: Citadel
+          file: ./abis/Citadel.json
+        - name: CitadelStrategy
+          file: ./abis/CitadelStrategy.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleCitadelShareTransfer
+        - event: Deposit(indexed address,address,uint256,uint256)
+          handler: handleCitadelDeposit
+        - event: Withdraw(indexed address,address,uint256,uint256)
+          handler: handleCitadelWithdraw
       file: ./src/mapping.ts
