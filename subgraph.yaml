@@ -258,6 +258,7 @@ dataSources:
     source:
       address: "0xb41A49De82e95dc1E028839C3440Ac97f9A7832C"
       abi: HarvestFighter
+      startBlock: 24942735
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -290,6 +291,7 @@ dataSources:
     source:
       address: "0x54783464848b35d6fb9bba37C1dDd23aC3B1A11A"
       abi: HarvestFighter
+      startBlock: 24942735
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -322,6 +324,7 @@ dataSources:
     source:
       address: "0x0f89EE5b95d1d5cfb10F29775d816fC6D8Adb9FC"
       abi: HarvestFighter
+      startblock: 24942735
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
