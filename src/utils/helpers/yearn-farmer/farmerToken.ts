@@ -2,8 +2,8 @@ import { Address } from "@graphprotocol/graph-ts";
 import { FarmerToken } from "../../../../generated/schema";
 import { BIGINT_ZERO } from "../../constants";
 import { DEFAULT_DECIMALS } from "../../decimals";
-import { yEarn } from '../../../../generated/DAOVaultMediumUSDT/yEarn';
-import { yVault } from '../../../../generated/DAOVaultMediumUSDT/yVault';
+import { yEarn } from "../../../../generated/YearnFighterUSDT/yEarn";
+import { yVault } from "../../../../generated/YearnFighterUSDT/yVault";
 
 export function getOrCreateEarnFarmerToken(
   tokenAddress: Address,
@@ -30,8 +30,12 @@ export function getOrCreateEarnFarmerToken(
       : DEFAULT_DECIMALS;
     token.name = !tokenName.reverted ? tokenName.value : "";
     token.symbol = !tokenSymbol.reverted ? tokenSymbol.value : "";
-    token.balanceRaw = !tokenBalance.reverted ? tokenBalance.value : BIGINT_ZERO;
-    token.getPricePerFullShare = !tokenGetPricePerFullShare.reverted ? tokenGetPricePerFullShare.value : BIGINT_ZERO;
+    token.balanceRaw = !tokenBalance.reverted
+      ? tokenBalance.value
+      : BIGINT_ZERO;
+    token.getPricePerFullShare = !tokenGetPricePerFullShare.reverted
+      ? tokenGetPricePerFullShare.value
+      : BIGINT_ZERO;
 
     if (persist) {
       token.save();
@@ -66,8 +70,12 @@ export function getOrCreateVaultFarmerToken(
       : DEFAULT_DECIMALS;
     token.name = !tokenName.reverted ? tokenName.value : "";
     token.symbol = !tokenSymbol.reverted ? tokenSymbol.value : "";
-    token.balanceRaw = !tokenBalance.reverted ? tokenBalance.value : BIGINT_ZERO;
-    token.getPricePerFullShare = !tokenGetPricePerFullShare.reverted ? tokenGetPricePerFullShare.value : BIGINT_ZERO;
+    token.balanceRaw = !tokenBalance.reverted
+      ? tokenBalance.value
+      : BIGINT_ZERO;
+    token.getPricePerFullShare = !tokenGetPricePerFullShare.reverted
+      ? tokenGetPricePerFullShare.value
+      : BIGINT_ZERO;
 
     if (persist) {
       token.save();
