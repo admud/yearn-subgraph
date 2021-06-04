@@ -4,3 +4,4 @@ generated
 build
 .DS_Store
 .env
+secret.txt
