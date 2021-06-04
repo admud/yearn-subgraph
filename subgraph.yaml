@@ -256,9 +256,9 @@ dataSources:
     name: HarvestFighterUSDT
     network: kovan
     source:
-      address: "0xb41A49De82e95dc1E028839C3440Ac97f9A7832C"
+      address: "0x193ae175ED2611DC89c0BFf3f285D7a478e4d9e3"
       abi: HarvestFighter
-      startBlock: 24942735
+      startBlock: 25226071
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -289,9 +289,9 @@ dataSources:
     name: HarvestFighterUSDC
     network: kovan
     source:
-      address: "0x54783464848b35d6fb9bba37C1dDd23aC3B1A11A"
+      address: "0x9cBE08Ab1CEfAeBD3eEcBA49FC815b9Ea7cc4d47"
       abi: HarvestFighter
-      startBlock: 24942735
+      startBlock: 25226071
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -322,9 +322,9 @@ dataSources:
     name: HarvestFighterDAI
     network: kovan
     source:
-      address: "0x0f89EE5b95d1d5cfb10F29775d816fC6D8Adb9FC"
+      address: "0x456F74F54b533DF2E6EE5AC10287DaBaE0A9c7c6"
       abi: HarvestFighter
-      startBlock: 24942735
+      startBlock: 25226071
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
