@@ -24,6 +24,7 @@ import { Citadel } from "../../../../generated/DAOVaultCitadel/Citadel";
 import { YearnFarmerv2 } from "../../../../generated/YearnFighterUSDT/YearnFarmerv2";
 import { CompoundFarmer } from "../../../../generated/CompoundFighterUSDT/CompoundFarmer";
 import { HarvestFarmer } from "../../../../generated/HarvestFighterUSDT/HarvestFarmer";
+import { EACAggregatorProxy } from "../../../../generated/DAOVaultCitadel/EACAggregatorProxy";
 
 export function getOrCreateFarmer(
   vaultAddress: Address,
@@ -324,12 +325,16 @@ export function getOrCreateCitadelFarmer(
       // Might be worth using the "try_" version of these calls in the future.
       // let underlyingTokenAddress = vaultContract.token();
       // let underlyingToken = getOrCreateToken(underlyingTokenAddress);
+      
+      // Get ETH Price from External Contract
+      let proxyContract = EACAggregatorProxy.bind(Address.fromString("0x0bF499444525a23E7Bb61997539725cA2e928138"));
+      let ethPrice = proxyContract.latestAnswer();
 
       // The vault itself is an ERC20
       let shareToken = getOrCreateToken(vaultAddress);
 
       let totalSupply = vaultContract.try_totalSupply();
-      vault.poolRaw = vaultContract.getAllPoolInETH();
+      vault.poolRaw = vaultContract.getAllPoolInETH(ethPrice);
       vault.totalSupplyRaw = !totalSupply.reverted
         ? totalSupply.value
         : vault.totalSupplyRaw;

@@ -256,9 +256,9 @@ dataSources:
     name: HarvestFighterUSDT
     network: kovan
     source:
-      address: "0xb41A49De82e95dc1E028839C3440Ac97f9A7832C"
+      address: "0x35880615bb18DA592FF0fEb0940ADE2c02249715"
       abi: HarvestFighter
-      startBlock: 24942735
+      startBlock: 25281070
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -289,9 +289,9 @@ dataSources:
     name: HarvestFighterUSDC
     network: kovan
     source:
-      address: "0x54783464848b35d6fb9bba37C1dDd23aC3B1A11A"
+      address: "0x68b1C860300c4f7d577f08D8B3c3AEe23887b280"
       abi: HarvestFighter
-      startBlock: 24942735
+      startBlock: 25281070
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -322,9 +322,9 @@ dataSources:
     name: HarvestFighterDAI
     network: kovan
     source:
-      address: "0x0f89EE5b95d1d5cfb10F29775d816fC6D8Adb9FC"
+      address: "0x6D7e8fA90C1ffdC019d691BAFC18D6362FdEeCd7"
       abi: HarvestFighter
-      startblock: 24942735
+      startBlock: 25281070
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -355,9 +355,9 @@ dataSources:
     name: DAOVaultCitadel
     network: kovan
     source:
-      address: "0x542a42496C96b946324f7dce2B030d5643d9eF8A"
+      address: "0x626C25cA5b86277f395c0E40DBdF51f2a302aB43"
       abi: Citadel
-      startBlock: 25156223
+      startBlock: 25336169
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -378,6 +378,8 @@ dataSources:
           file: ./abis/Citadel.json
         - name: CitadelStrategy
           file: ./abis/CitadelStrategy.json
+        - name: EACAggregatorProxy
+          file: ./abis/EACAggregatorProxy.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleCitadelShareTransfer
