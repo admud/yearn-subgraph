@@ -327,7 +327,7 @@ export function getOrCreateCitadelFarmer(
       // let underlyingToken = getOrCreateToken(underlyingTokenAddress);
       
       // Get ETH Price from External Contract
-      let proxyContract = EACAggregatorProxy.bind(Address.fromString("0x0bF499444525a23E7Bb61997539725cA2e928138"));
+      let proxyContract = EACAggregatorProxy.bind(Address.fromString("0xEe9F2375b4bdF6387aa8265dD4FB8F16512A1d46"));
       let ethPrice = proxyContract.latestAnswer();
 
       // The vault itself is an ERC20

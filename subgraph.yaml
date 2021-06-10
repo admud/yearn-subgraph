@@ -8,10 +8,10 @@ dataSources:
   ## Yearn Fighter USDT
   - kind: ethereum/contract
     name: YearnFighterUSDT
-    network: kovan
+    network: mainnet
     source:
-      address: "0x6B150E9BD70E216775c8b73270E64e870a3110c1"
-      startBlock: 24705457
+      address: "0x4F0C1c9bA6B9CCd0BEd6166e86b672ac8EE621F7"
+      startBlock: 12081150
       abi: YearnFighter
     mapping:
       kind: ethereum/events
@@ -45,10 +45,10 @@ dataSources:
   ## Yearn Fighter USDC
   - kind: ethereum/contract
     name: YearnFighterUSDC
-    network: kovan
+    network: mainnet
     source:
-      address: "0x6E15e283dc430eca010Ade8b11b5B377902d6e56"
-      startBlock: 24705463
+      address: "0x9f0230FbDC0379E5FefAcca89bE03A42Fec5fb6E"
+      startBlock: 12081158
       abi: YearnFighter
     mapping:
       kind: ethereum/events
@@ -82,10 +82,10 @@ dataSources:
   ## Yearn Fighter DAI
   - kind: ethereum/contract
     name: YearnFighterDAI
-    network: kovan
+    network: mainnet
     source:
-      address: "0x2428bFD238a3632552B343297c504F60283009eD"
-      startBlock: 24705468
+      address: "0x2bFc2Da293C911e5FfeC4D2A2946A599Bc4Ae770"
+      startBlock: 12081163
       abi: YearnFighter
     mapping:
       kind: ethereum/events
@@ -119,10 +119,10 @@ dataSources:
   ## Yearn Fighter TUSD
   - kind: ethereum/contract
     name: YearnFighterTUSD
-    network: kovan
+    network: mainnet
     source:
-      address: "0xEcCb98c36bfc8c49c6065d1cD90bcf1c6F02D4AD"
-      startBlock: 24738659
+      address: "0x2C8de02aD4312069355B94Fb936EFE6CFE0C8FF6"
+      startBlock: 12081177
       abi: YearnFighter
     mapping:
       kind: ethereum/events
@@ -156,10 +156,10 @@ dataSources:
   ## Compound Fighter USDT
   - kind: ethereum/contract
     name: CompoundFighterUSDT
-    network: kovan
+    network: mainnet
     source:
-      address: "0x5d102E0Bdf2037899E1FF2E8cc50987108533c52"
-      startBlock: 24070008
+      address: "0xEeCe6AD323a93d4B021BDAaC587DCC04b5cf0a78"
+      startBlock: 12126099
       abi: CompoundFighter
     mapping:
       kind: ethereum/events
@@ -188,10 +188,10 @@ dataSources:
   ## Compound Fighter USDC
   - kind: ethereum/contract
     name: CompoundFighterUSDC
-    network: kovan
+    network: mainnet
     source:
-      address: "0x05AB7659e6Ef9Ba1a5F790b402fD1688F01b003E"
-      startBlock: 24069986
+      address: "0xd1D7f950899C0269a7F2aad5E854cdc3a1350ba9"
+      startBlock: 12125523
       abi: CompoundFighter
     mapping:
       kind: ethereum/events
@@ -220,10 +220,10 @@ dataSources:
   ## Compound Fighter DAI
   - kind: ethereum/contract
     name: CompoundFighterDAI
-    network: kovan
+    network: mainnet
     source:
-      address: "0x47E565B1e23cdA3D6bB69e7ae398b884f5ADdc7D"
-      startBlock: 24069965
+      address: "0x43C20638C3914Eca3c96e9cAc8ebE7d652Be45c6"
+      startBlock: 12125533
       abi: CompoundFighter
     mapping:
       kind: ethereum/events
@@ -254,11 +254,11 @@ dataSources:
   ## Harvest Fighter USDT
   - kind: ethereum/contract
     name: HarvestFighterUSDT
-    network: kovan
+    network: mainnet
     source:
-      address: "0x35880615bb18DA592FF0fEb0940ADE2c02249715"
+      address: "0x2Cc1507E6E3C844EEb77Db90d193489f1Ddfb299"
       abi: HarvestFighter
-      startBlock: 25281070
+      startBlock: 12586496
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -287,11 +287,11 @@ dataSources:
   ## Harvest Fighter USDC
   - kind: ethereum/contract
     name: HarvestFighterUSDC
-    network: kovan
+    network: mainnet
     source:
-      address: "0x68b1C860300c4f7d577f08D8B3c3AEe23887b280"
+      address: "0xd0f0858578C7780f2D65f6d81BC7DdBe166367cC"
       abi: HarvestFighter
-      startBlock: 25281070
+      startBlock: 12586496
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -320,11 +320,11 @@ dataSources:
   ## Harvest Fighter DAI
   - kind: ethereum/contract
     name: HarvestFighterDAI
-    network: kovan
+    network: mainnet
     source:
-      address: "0x6D7e8fA90C1ffdC019d691BAFC18D6362FdEeCd7"
+      address: "0xE4E6Ce7c1D9Ff44Db27f622aCcbB0753C2f48955"
       abi: HarvestFighter
-      startBlock: 25281070
+      startBlock: 12586496
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -353,11 +353,11 @@ dataSources:
   # DAO Vault Citadel
   - kind: ethereum/contract
     name: DAOVaultCitadel
-    network: kovan
+    network: mainnet
     source:
-      address: "0x626C25cA5b86277f395c0E40DBdF51f2a302aB43"
+      address: "0x8fE826cC1225B03Aa06477Ad5AF745aEd5FE7066"
       abi: Citadel
-      startBlock: 25336169
+      startBlock: 12586420
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
