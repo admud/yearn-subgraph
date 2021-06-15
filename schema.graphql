@@ -150,6 +150,7 @@ type Deposit implements Action @entity {
   farmer: Farmer!
   account: Account!
   amount: BigInt!
+  amountInUSD: BigInt
   shares: BigInt!
   totalSupply: BigInt!
   transaction: Transaction!
@@ -160,6 +161,7 @@ type Withdrawal implements Action @entity {
   farmer: Farmer!
   account: Account!
   amount: BigInt!
+  amountInUSD: BigInt
   shares: BigInt!
   totalSupply: BigInt!
   transaction: Transaction!
