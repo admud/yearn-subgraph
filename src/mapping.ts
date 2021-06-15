@@ -63,6 +63,7 @@ function handleDeposit(
 function handleCitadelDepositTemplate(
   event: Deposit,
   amount: BigInt,
+  amountInUSD: BigInt,
   accountId: string,
   vault: Farmer,
   transactionId: string
@@ -72,6 +73,7 @@ function handleCitadelDepositTemplate(
   deposit.farmer = vault.id;
   deposit.account = accountId;
   deposit.amount = amount;
+  deposit.amountInUSD = amountInUSD,
   deposit.shares = event.params.sharesMint; // TODO change to minted shares
   deposit.totalSupply = vault.totalSupplyRaw;
   deposit.transaction = event.transaction.hash.toHexString();
@@ -101,6 +103,7 @@ function handleWithdrawal(
 function handleCitadelWithdrawalTemplate(
   event: Withdraw,
   amount: BigInt,
+  amountInUSD: BigInt,
   accountId: string,
   vault: Farmer,
   transactionId: string
@@ -110,6 +113,7 @@ function handleCitadelWithdrawalTemplate(
   withdraw.farmer = vault.id;
   withdraw.account = accountId;
   withdraw.amount = amount;
+  withdraw.amountInUSD = amountInUSD;
   withdraw.shares = event.params.sharesBurn;
   withdraw.totalSupply = vault.totalSupplyRaw;
   withdraw.transaction = event.transaction.hash.toHexString();
@@ -1095,6 +1099,9 @@ export function handleCitadelDeposit(event: Deposit): void {
     amount = event.params.sharesMint;
   }
 
+  let amountInUSD: BigInt;
+  amountInUSD = event.params.amtDeposit;
+
   let toAccountBalance = getOrCreateAccountVaultBalance(
     toAccount.id.concat("-").concat(farmer.id)
   );
@@ -1113,9 +1120,10 @@ export function handleCitadelDeposit(event: Deposit): void {
   handleCitadelDepositTemplate(
     event,
     amount,
+    amountInUSD,
     toAccount.id,
     farmer,
-    transactionId
+    transactionId,
   );
   // We should fact check that the amount deposited is exactly the same as calculated
   // If it's not, we should use a callHandler for deposit(_amount)
@@ -1219,6 +1227,9 @@ export function handleCitadelWithdraw(event: Withdraw): void {
     amount = event.params.sharesBurn;
   }
 
+  let amountInUSD: BigInt;
+  amountInUSD = event.params.amtWithdraw;
+
   let fromAccountBalance = getOrCreateAccountVaultBalance(
     fromAccount.id.concat("-").concat(farmer.id)
   );
@@ -1237,6 +1248,7 @@ export function handleCitadelWithdraw(event: Withdraw): void {
   handleCitadelWithdrawalTemplate(
     event,
     amount,
+    amountInUSD,
     fromAccount.id,
     farmer,
     transactionId
