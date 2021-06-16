@@ -1,4 +1,4 @@
-import { Address, BigInt } from "@graphprotocol/graph-ts";
+import { Address, BigDecimal, BigInt } from "@graphprotocol/graph-ts";
 import { Transfer } from "../generated/YearnFighterUSDT/YearnFighter";
 import { Deposit, Withdraw } from "../generated/DAOVaultCitadel/Citadel";
 import { Farmer } from "../generated/schema";
@@ -63,7 +63,7 @@ function handleDeposit(
 function handleCitadelDepositTemplate(
   event: Deposit,
   amount: BigInt,
-  amountInUSD: BigInt,
+  amountInUSD: BigDecimal,
   accountId: string,
   vault: Farmer,
   transactionId: string
@@ -103,7 +103,7 @@ function handleWithdrawal(
 function handleCitadelWithdrawalTemplate(
   event: Withdraw,
   amount: BigInt,
-  amountInUSD: BigInt,
+  amountInUSD: BigDecimal,
   accountId: string,
   vault: Farmer,
   transactionId: string
@@ -1100,7 +1100,9 @@ export function handleCitadelDeposit(event: Deposit): void {
   }
 
   let amountInUSD: BigInt;
-  amountInUSD = event.params.amtDeposit;
+  amountInUSD = event.params.amtDeposit
+  let finalAmountInUSD: BigDecimal;
+  finalAmountInUSD = toDecimal(amountInUSD, underlyingToken.decimals);
 
   let toAccountBalance = getOrCreateAccountVaultBalance(
     toAccount.id.concat("-").concat(farmer.id)
@@ -1120,7 +1122,7 @@ export function handleCitadelDeposit(event: Deposit): void {
   handleCitadelDepositTemplate(
     event,
     amount,
-    amountInUSD,
+    finalAmountInUSD,
     toAccount.id,
     farmer,
     transactionId,
@@ -1229,6 +1231,8 @@ export function handleCitadelWithdraw(event: Withdraw): void {
 
   let amountInUSD: BigInt;
   amountInUSD = event.params.amtWithdraw;
+  let finalAmountInUSD: BigDecimal;
+  finalAmountInUSD = toDecimal(amountInUSD, underlyingToken.decimals);
 
   let fromAccountBalance = getOrCreateAccountVaultBalance(
     fromAccount.id.concat("-").concat(farmer.id)
@@ -1248,7 +1252,7 @@ export function handleCitadelWithdraw(event: Withdraw): void {
   handleCitadelWithdrawalTemplate(
     event,
     amount,
-    amountInUSD,
+    finalAmountInUSD,
     fromAccount.id,
     farmer,
     transactionId
