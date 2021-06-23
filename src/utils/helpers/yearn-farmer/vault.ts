@@ -400,17 +400,17 @@ export function getOrCreateElonFarmer(
   if (update) {
     let strategyAddress = vaultContract.try_strategy();
     if (!strategyAddress.reverted) {
-      // Might be worth using the "try_" version of these calls in the future.
       // The vault itself is an ERC20
       let shareToken = getOrCreateToken(vaultAddress);
+      vault.shareToken = shareToken.id;
+
+      let poolInUsd = vaultContract.getAllPoolInUSD(); // All pool in USD (6 decimals)
+      vault.poolRaw = poolInUsd.times(BigInt.fromI32(10).pow(12));
 
       let totalSupply = vaultContract.try_totalSupply();
       vault.totalSupplyRaw = !totalSupply.reverted
         ? totalSupply.value
         : vault.totalSupplyRaw;
-      vault.poolRaw = vault.totalSupplyRaw;
-      vault.shareToken = shareToken.id;
-
       vault.totalSupply = toDecimal(
         vault.totalSupplyRaw,
         vaultContract.decimals()
