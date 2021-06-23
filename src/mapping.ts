@@ -19,6 +19,7 @@ import {
   getOrCreateVaultTransfer,
   getOrCreateVaultWithdrawal,
 } from "./utils/helpers/yearn-farmer/vault";
+import { EACAggregatorProxy } from "../generated/DAOVaultCitadel/EACAggregatorProxy";
 
 function handleTransfer(
   event: Transfer,
@@ -37,6 +38,33 @@ function handleTransfer(
   transfer.amount = amount;
   transfer.totalSupply = vault.totalSupplyRaw;
   transfer.transaction = event.transaction.hash.toHexString();
+
+  transfer.save();
+}
+
+function handleCitadelTransferTemplate(
+  event: Transfer,
+  amount: BigInt,
+  fromId: string,
+  toId: string,
+  vault: Farmer,
+  transactionId: string
+): void {
+  let transfer = getOrCreateVaultTransfer(transactionId);
+
+  transfer.farmer = vault.id;
+  transfer.from = fromId;
+  transfer.to = toId;
+  transfer.value = event.params.value;
+  transfer.amount = amount;
+  transfer.totalSupply = vault.totalSupplyRaw;
+  transfer.transaction = event.transaction.hash.toHexString();
+  
+  // Amount of shares in USD, Get ETH <-> USD price from chain link
+  let proxyContract = EACAggregatorProxy.bind(Address.fromString("0x9326BFA02ADD2366b30bacB125260Af641031331"));
+  let usdPrice = toDecimal(proxyContract.latestAnswer(), proxyContract.decimals());
+  let sharesInUSD = toDecimal(event.params.value, 18).times(usdPrice);
+  transfer.amountInUSD = sharesInUSD;
 
   transfer.save();
 }
@@ -970,7 +998,7 @@ export function handleCitadelShareTransfer(event: Transfer): void {
     event.params.from.toHexString() != ZERO_ADDRESS &&
     event.params.to.toHexString() != ZERO_ADDRESS
   ) {
-    handleTransfer(
+    handleCitadelTransferTemplate(
       event,
       amount,
       fromAccount.id,
